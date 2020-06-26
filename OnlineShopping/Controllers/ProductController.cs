@@ -9,14 +9,8 @@ namespace OnlineShopping.Controllers
 {
     public class ProductController : Controller
     {
-        IUnitOfWork DB;
-        public ProductController(IUnitOfWork _DB)
-        {
-            DB = _DB;
-        }
         public IActionResult Index()
         {
-            var prds = DB.ProductRepository.GetAll(new string[0] { });
             return View();
         }
     }
