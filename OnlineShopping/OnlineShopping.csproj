@@ -9,14 +9,12 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Core\DbEntitiesConfigurations\" />
     <Folder Include="Models\" />
     <Folder Include="Areas\" />
     <Folder Include="Persistence\ViewModels\" />
     <Folder Include="wwwroot\Core\" />
     <Folder Include="wwwroot\DashboardAssets\" />
-    <Folder Include="wwwroot\lib\" />
     <Folder Include="wwwroot\StoreAssets\" />
   </ItemGroup>
 
