@@ -7,18 +7,17 @@ using OnlineShopping.Core;
 
 namespace OnlineShopping.Controllers
 {
-    public class HomeController : Controller
+    public class ProductController : Controller
     {
-        IUnitOfWork unitOfWork;
-        public HomeController(IUnitOfWork _unitOfWork)
+        IUnitOfWork DB;
+        public ProductController(IUnitOfWork _DB)
         {
-            unitOfWork = _unitOfWork;
+            DB = _DB;
         }
         public IActionResult Index()
         {
-            var prds = unitOfWork.ProductRepository.GetAll(new string[0] { });
-
-            return View(prds);
+            var prds = DB.ProductRepository.GetAll(new string[0] { });
+            return View();
         }
     }
 }
