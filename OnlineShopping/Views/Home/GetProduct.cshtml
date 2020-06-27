@@ -1,0 +1,56 @@
+﻿@model IEnumerable<OnlineShopping.Core.DbEntities.Product>
+
+@{
+    ViewData["Title"] = "GetProduct";
+    var Categories = ViewBag.Categories;
+    var Brands = ViewBag.Brands;
+}
+
+
+@foreach (var item in Model)
+{
+    <div class="item">
+
+        <div class="product">
+            <div class="product_img">
+                <a href="shop-product-detail.html">
+                    <img src="@item.productImages.ToList().FirstOrDefault().Path" alt="product_img1">
+                </a>
+            </div>
+            <div class="product_info">
+                <h6 class="product_title"><a href="shop-product-detail.html">@item.Title</a></h6>
+                <div class="product_price">
+                    <span class="price">@item.Price $</span>
+                </div>
+                <div class="on_sale">
+                    Category : <span>@item.Category.Name</span><br />
+                    Brand : <span>@item.Brand.Name</span>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+}
+@section Category{
+    @foreach (var item in Categories)
+    {
+        <li><a class="nav-link nav_item" asp-action="GetProduct" asp-route-id="@item.Id">@item.Name</a></li>
+
+    }
+
+}
+
+@section Brand{
+
+    @foreach (var item in Brands)
+    {
+        <div class="item">
+            <div class="cl_logo">
+                <img src="@item.ImagePath" alt="cl_logo">
+            </div>
+        </div>
+    }
+
+}

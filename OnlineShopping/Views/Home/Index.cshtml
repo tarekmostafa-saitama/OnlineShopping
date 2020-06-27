@@ -6,7 +6,7 @@
 
 @foreach (var item in Model.products)
 
-    {
+{
     <div class="item">
         @for (int i = 0; i < 3; i++)
         {
@@ -32,7 +32,7 @@
 
     </div>
 
-    }
+}
 
 
 @section Brand{
@@ -47,3 +47,12 @@
     }
 
 }
+@section Category{
+    @foreach (var item in Model.categories)
+    {
+        <li><a class="nav-link nav_item" asp-action="GetProduct" asp-route-id="@item.Id">@item.Name</a></li>
+
+    }
+
+}
+
