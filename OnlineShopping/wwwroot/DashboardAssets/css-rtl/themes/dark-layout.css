@@ -1,10 +1,7 @@
 /* Dark Layout */
 /* ----------- */
 
-@font-face {
-    font-family: 'DroidArabicKufiRegular';
-    src: url('/DroidKufi/DroidKufiRegular.ttf');
-}
+
 
 body.dark-layout {
   background-color : #1A233A;

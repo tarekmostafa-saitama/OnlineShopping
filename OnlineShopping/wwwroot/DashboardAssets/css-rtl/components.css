@@ -39,7 +39,7 @@
 /* ----------- */
 
 @font-face {
-    font-family: 'DroidArabicKufiRegular';
+    font-family: 'Roboto';
     src: url('/DroidKufi/DroidKufiRegular.ttf');
 }
 
@@ -832,7 +832,7 @@ body.footer-hidden footer {
 
 /* Main Navigation */
 .navigation {
-    font-family: 'DroidArabicKufiRegular';
+    font-family: 'Roboto';
     overflow-y: hidden;
     padding-bottom: 20px;
 }

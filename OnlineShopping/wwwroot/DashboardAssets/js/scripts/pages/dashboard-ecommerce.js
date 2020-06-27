@@ -47,7 +47,7 @@ $(window).on("load", function () {
           },
           value: {
             fontSize: '30px',
-            fontFamily: "Rubik",
+            fontFamily: "Roboto",
             offsetY: -15,
           },
           total: {

@@ -45,7 +45,7 @@ $(document).ready(function () {
             fontSize: "20px",
             show: true,
             offsetY: 8,
-            fontFamily: "Rubik"
+            fontFamily: "Roboto"
           }
         }
       }
@@ -89,7 +89,7 @@ $(document).ready(function () {
             fontSize: "20px",
             show: true,
             offsetY: 8,
-            fontFamily: "Rubik"
+            fontFamily: "Roboto"
           }
         }
       }
@@ -133,7 +133,7 @@ $(document).ready(function () {
             fontSize: "20px",
             show: true,
             offsetY: 8,
-            fontFamily: "Rubik"
+            fontFamily: "Roboto"
           }
         }
       }
@@ -176,7 +176,7 @@ $(document).ready(function () {
           },
           value: {
             fontSize: '32px',
-            fontFamily: "Rubik",
+            fontFamily: "Roboto",
             offsetY: -15,
           },
           total: {
@@ -276,14 +276,14 @@ $(document).ready(function () {
             show: true,
             name: {
               show: true,
-              fontFamily: 'Rubik',
+              fontFamily: 'Roboto',
               color: $gray_light,
               offsetY: 30
             },
             value: {
               show: true,
               fontSize: '32px',
-              fontFamily: 'Rubik',
+              fontFamily: 'Roboto',
               color: undefined,
               offsetY: -20,
               formatter: function (val) {
@@ -343,14 +343,14 @@ $(document).ready(function () {
             name: {
               show: true,
               fontSize: '22px',
-              fontFamily: 'Rubik',
+              fontFamily: 'Roboto',
               color: $gray_light,
               offsetY: 20
             },
             value: {
               show: true,
               fontSize: '32px',
-              fontFamily: 'Rubik',
+              fontFamily: 'Roboto',
               color: undefined,
               offsetY: -30,
               formatter: function (val) {
@@ -577,7 +577,7 @@ $(document).ready(function () {
           },
           value: {
             fontSize: '32px',
-            fontFamily: "Rubik",
+            fontFamily: "Roboto",
             offsetY: -15,
           },
           total: {

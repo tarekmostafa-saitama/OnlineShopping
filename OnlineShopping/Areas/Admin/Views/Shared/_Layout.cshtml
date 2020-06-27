@@ -13,7 +13,7 @@
     <title>@ViewBag.Title</title>
     <link rel="shortcut icon" type="image/x-icon" href="~/DashboardAssets/images/ico/favicon.ico">
 
-
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- BEGIN: Vendor CSS-->
     <link href="~/DashboardAssets/vendors/css/vendors-rtl.min.css" rel="stylesheet" />
     <link href="~/DashboardAssets/vendors/css/ui/prism.min.css" rel="stylesheet" />
@@ -60,13 +60,13 @@
 
                         <li class="dropdown dropdown-user nav-item">
                             <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="user-nav d-sm-flex "><span class="user-name">حساب الادمن</span></div>
+                                <div class="user-nav d-sm-flex "><span class="user-name">Admin Account</span></div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 @*<a class="dropdown-item" href="#"><i class="bx bx-user mr-50"></i> تعديل بيانات الحساب</a>*@
-                                <a class="dropdown-item" asp-controller="Account" asp-action="ChangePassword"><i class="bx bx-key mr-50"></i> تعديل الرقم السرى</a>
+                                <a class="dropdown-item" asp-controller="Account" asp-action="ChangePassword"><i class="bx bx-key mr-50"></i>Change Password</a>
 
-                                <div class="dropdown-divider"></div><a class="dropdown-item" asp-controller="Account" asp-action="Logout"><i class="bx bx-power-off mr-50"></i> تسجيل خروج</a>
+                                <div class="dropdown-divider"></div><a class="dropdown-item" asp-controller="Account" asp-action="Logout"><i class="bx bx-power-off mr-50"></i>Logout</a>
                             </div>
                         </li>
                     </ul>
@@ -80,7 +80,7 @@
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mr-auto">
-                    <a class="navbar-brand" href="../../../html/rtl/vertical-menu-template-dark/index.html">
+                    <a class="navbar-brand" asp-action="Dashboard" asp-controller="Dashboard">
                         <div class="brand-logo"><img class="logo" src="../../../DashboardAssets/images/logo/logo.png" /></div>
                         <h2 class="brand-text mb-0">Frest</h2>
                     </a>
@@ -92,7 +92,7 @@
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
                 <li class=" nav-item">
-                    <a asp-controller="Dashboard" asp-action="Home"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="">الصفحة الرئيسية</span></a>
+                    <a asp-controller="Dashboard" asp-action="Dashboard"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="">Home</span></a>
                 </li>
 
                 <li class=" nav-item">

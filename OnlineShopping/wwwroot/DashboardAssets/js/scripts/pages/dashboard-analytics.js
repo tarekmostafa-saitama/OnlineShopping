@@ -362,7 +362,7 @@ $(window).on("load", function () {
             value: {
               show: true,
               fontSize: '26px',
-              fontFamily: 'Rubik',
+              fontFamily: 'Roboto',
               color: $label_color,
               offsetY: -20,
               formatter: function (val) {
