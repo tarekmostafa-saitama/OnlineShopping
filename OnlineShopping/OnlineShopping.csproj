@@ -5,17 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Controllers\" />
     <Folder Include="Core\DbEntitiesConfigurations\" />
     <Folder Include="Models\" />
-    <Folder Include="Areas\" />
     <Folder Include="Persistence\ViewModels\" />
+    <Folder Include="Views\Shared\" />
     <Folder Include="wwwroot\Core\" />
-    <Folder Include="wwwroot\DashboardAssets\" />
     <Folder Include="wwwroot\lib\" />
     <Folder Include="wwwroot\StoreAssets\" />
   </ItemGroup>
