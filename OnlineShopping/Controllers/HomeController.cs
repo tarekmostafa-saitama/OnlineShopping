@@ -36,7 +36,11 @@ namespace OnlineShopping.Controllers
         public IActionResult Details(int id)
         {
             var product = unitOfWork.ProductRepository.Get(id, new string[] { });
+            var products = unitOfWork.ProductRepository.GetAll(new string[0] { }).ToList();
+            ViewData["relprod"] = products.Where(item => item.CategoryId == product.CategoryId).ToList();
             return View(product);
         }
+
+        
     }
 }
