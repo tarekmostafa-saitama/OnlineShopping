@@ -2,6 +2,6 @@
 
 @foreach (var item in Model.categories)
 {
-    <li><a class="nav-link nav_item" asp-action="GetCategoryItems" asp-route-id="@item.Id">@item.Name</a></li>
+    <li><a class="nav-link nav_item" asp-action="GetCategoryItems" asp-route-id="@item.Id" asp-controller="Home">@item.Name</a></li>
 
 }
