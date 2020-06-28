@@ -48,10 +48,7 @@ namespace OnlineShopping.Controllers
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             ViewBag.e = homeViewModel;
-            if (!await _roleManager.RoleExistsAsync("Member"))
-            {
-                await _roleManager.CreateAsync(new IdentityRole("Member"));
-            }
+           
 
             if (ModelState.IsValid)
             {
@@ -81,15 +78,41 @@ namespace OnlineShopping.Controllers
         public IActionResult Register()
         {
             ViewBag.e = homeViewModel;
+
             return View();
         }
         [Route("Account/Register")]
         [HttpPost]
-        public IActionResult Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            if (!await _roleManager.RoleExistsAsync("Member"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole("Member"));
+            }
             ViewBag.e = homeViewModel;
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-            return View();
+            var user = new Member()
+            {
+                UserName = model.UserName
+            };
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+
+                return View(model);
+            }
+
+            await _userManager.AddToRoleAsync(user, "Member");
+            return RedirectToAction(nameof(Login));
         }
     }
 }
