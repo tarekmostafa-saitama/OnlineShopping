@@ -9,19 +9,19 @@ namespace OnlineShopping.Areas.Admin.Models
     public class ChangePasswordViewModel
     {
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "الرقم السرى القديم مطلوب")]
-        [Display(Name = "الرقم السرى القديم")]
+        [Required(ErrorMessage = "Old password is required.")]
+
         public string CurrentPassword { get; set; }
 
-        [Required(ErrorMessage = "الرقم السرى الجديد مطلوب")]
-        [Display(Name = "الرقم السرى الجديد")]
+        [Required(ErrorMessage = "New password is required.")]
+
         [DataType(DataType.Password)]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "تأكيد الرقم السرى الجديد مطلوب")]
-        [Display(Name = "تأكيد الرقم السرى الجديد")]
-        [Compare("NewPassword", ErrorMessage = "الرقم السرى و تأكيد الرقم السرى غير متطابقان")]
+        [Required(ErrorMessage = "Confirm new password is required.")]
+
+        [Compare("NewPassword", ErrorMessage = "New password and Confirm new password don't match.")]
         public string ConfirmPassword { get; set; }
     }
 }
