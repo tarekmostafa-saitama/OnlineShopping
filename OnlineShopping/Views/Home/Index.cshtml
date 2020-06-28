@@ -3,35 +3,23 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-@foreach (var item in Model.products)
-
+@for (int i = 0; i < 8; i++)
 {
-    <div class="item">
-        @for (int i = 0; i < 3; i++)
-        {
-            <div class="product">
-                <div class="product_img">
-                    <a href="shop-product-detail.html">
-                        <img src="@item.productImages.ToList().FirstOrDefault().Path" alt="product_img1">
-                    </a>
-                </div>
-                <div class="product_info">
-                    <h6 class="product_title"><a href="shop-product-detail.html">@item.Title</a></h6>
-                    <div class="product_price">
-                        <span class="price">@item.Price $</span>
-                    </div>
-                    <div class="on_sale">
-                        Category : <span>@item.Category.Name  </span><br />
-                        Brand : <span>@item.Brand.Name</span>
-                    </div>
-                </div>
+    <div class="col-md-3">
+
+        <div class="card w-100 m-2" style="width: 18rem;">
+            <img class="card-img-top card-img" style="height:240px" src="@Model.products.ToList()[i].productImages.ToList().FirstOrDefault().Path" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title text-center">@Model.products.ToList()[i].Title</h5>
+                <p class="card-text">
+                    Price : <span class="price">@Model.products.ToList()[i].Price $</span><br />
+                    Category : <span>@Model.products.ToList()[i].Category.Name</span><br />
+                    Brand : <span>@Model.products.ToList()[i].Brand.Name</span>
+                </p>
+                <a href="#" class="btn btn-primary m-auto btn-block" style="background-color:#FF324D;">Details</a>
             </div>
-        }
-
-
+        </div>
     </div>
-
 }
 
 
@@ -45,28 +33,5 @@
             </div>
         </div>
     }
-
-}
-@section Search{
-    <form>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="custom_select">
-                    @*<select class="first_null">
-                        <option value="">All Category</option>
-                        <option value="Dresses">Dresses</option>
-                        <option value="Shirt-Tops">Shirt & Tops</option>
-                        <option value="T-Shirt">T-Shirt</option>
-                        <option value="Pents">Pents</option>
-                        <option value="Jeans">Jeans</option>
-                    </select>*@
-                    @Html.DropDownListFor(x => x.categories ,new SelectList(Model.categories,"Id","Name"))
-                </div>
-            </div>
-            <input class="form-control" name="ProductName" placeholder="Search Product..." required="" type="text">
-            <button asp-route-name="Name" asp-action="Search" type="submit" class="search_btn"><i class="linearicons-magnifier"  ></i></button>
-        </div>
-    </form>
-
 
 }
