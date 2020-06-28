@@ -17,7 +17,7 @@
                     Category : <span>@Model.products.ToList()[i].Category.Name</span><br />
                     Brand : <span>@Model.products.ToList()[i].Brand.Name</span>
                 </p>
-                <a href="#" class="btn btn-primary m-auto btn-block" style="background-color:#FF324D;">Details</a>
+                <a href="/home/details/@Model.products.ToList()[i].Id" class="btn m-auto btn-block" style="background-color:#FF324D;">Details</a>
             </div>
         </div>
     </div>
@@ -26,38 +26,15 @@
 
 @section Brand{
 
-    @foreach (var item in Model.brands)
-    {
-        <div class="item">
-            <div class="cl_logo">
-                <img src="@item.ImagePath" alt="cl_logo">
-            </div>
-        </div>
-    }
+    @Html.Partial("_Brand")
 
 }
 
 @section Search{
-    <form>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="custom_select">
-
-                    @Html.DropDownListFor(x => x.categories, new SelectList(Model.categories, "Id", "Name"))
-                </div>
-            </div>
-            <input class="form-control" name="ProductName" placeholder="Search Product..." required="" type="text">
-            <button asp-route-name="Name" asp-action="Search" type="submit" class="search_btn"><i class="linearicons-magnifier"></i></button>
-        </div>
-    </form>
+    @Html.Partial("_Search")
 
 }
 @section Category{
-    @foreach (var item in Model.categories)
-    {
-        <li><a class="nav-link nav_item" asp-action="GetProduct" asp-route-id="@item.Id">@item.Name</a></li>
-
-    }
-
+    @Html.Partial("_Category")
 }
 

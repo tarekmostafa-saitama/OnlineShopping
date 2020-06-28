@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OnlineShopping.Core;
+using OnlineShopping.Core.DbEntities;
 using OnlineShopping.Persistence.ViewModels;
 
 namespace OnlineShopping.Controllers
@@ -32,21 +33,30 @@ namespace OnlineShopping.Controllers
         {
             return View(homeViewModel);
         }
-        public IActionResult GetProduct(int id)
-        {
-            var Category = unitOfWork.CategoryRepository.Get(id, new string[0] { });
-            ViewData["Categories"] = unitOfWork.CategoryRepository.GetAll(new string[0] { });
-            ViewData["Brands"] = unitOfWork.BrandRepository.GetAll(new string[0] { });
 
-            var Products = unitOfWork.ProductRepository.Find(i => i.CategoryId == Category.Id, new string[0] { }).ToList();
-            return View(Products);
+        public IActionResult GetCategoryItems(int id)
+        {
+            homeViewModel = new HomeViewModel()
+            {
+                brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
+                categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
+                products = unitOfWork.ProductRepository.Find(i => i.CategoryId == id, new string[0] { }).ToList()
+            };
+
+            return View(homeViewModel);
         }
 
         public IActionResult Search(String ProductName,int categories)
         {
-            var productList = unitOfWork.ProductRepository.Find(oh => oh.Title.Contains(ProductName) && oh.CategoryId== categories, new string[] { "productImages", "Brand", "Category" }).ToList();
+           
+            homeViewModel = new HomeViewModel()
+            {
+                brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
+                categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
+                products = unitOfWork.ProductRepository.Find(oh => oh.Title.Contains(ProductName) && oh.CategoryId == categories, new string[] { "productImages", "Brand", "Category" }).ToList()
+        };
 
-            return View(productList);
+            return View("GetCategoryItems", homeViewModel);
 
         }
         [HttpGet]
