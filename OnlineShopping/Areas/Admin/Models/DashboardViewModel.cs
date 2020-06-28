@@ -11,5 +11,6 @@ namespace OnlineShopping.Areas.Admin.Models
         public int ProductsCount { get; set; }
         public int OrdersCount { get; set; }
         public int MembersCount { get; set; }
+        public int BrandCount { get; set; }
     }
 }

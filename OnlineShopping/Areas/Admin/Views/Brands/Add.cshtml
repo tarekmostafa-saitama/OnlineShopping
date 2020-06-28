@@ -1,0 +1,123 @@
+﻿@model AddBrandViewModel
+@{
+    ViewData["Title"] = "Add Brand";
+}
+
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-12 mb-2 mt-1">
+                <div class="row breadcrumbs-top">
+                    <div class="col-12">
+                        <h5 class="content-header-title float-left pr-1 mb-0">Where are you : </h5>
+                        <div class="breadcrumb-wrapper col-12">
+                            <ol class="breadcrumb p-0 mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href=""><i class="bx bx-home-alt"></i></a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a>Brands</a>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    Add new Brand
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <!-- Description -->
+            <section id="description" class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                    </h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+
+
+
+
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="account-vertical-general" aria-labelledby="account-pill-general" aria-expanded="true">
+                                <div class="media">
+                                    <a href="javascript: void(0);">
+
+                                        <img src="/DashboardAssets/images/placeholder.png" class="rounded mr-75" id="myImagePerview" alt="profile image" height="84" width="84">
+                                    </a>
+                                    <div class="media-body mt-25">
+                                        <div class="col-12 px-0 d-flex flex-sm-row flex-column justify-content-start">
+                                            <label for="select-files" class="btn btn-sm btn-light-primary ml-50 mb-50 mb-sm-0">
+                                                <span>Add Brand Image</span>
+                                                <input form="myform" id="select-files" accept="image/x-png,image/jpeg" asp-for="Image" type="file" hidden="">
+                                            </label>
+
+                                        </div>
+                                        <p class="text-muted ml-1 mt-50">
+                                            <small>
+                                                Please upload png, jpg File only.
+                                            </small>
+                                        </p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <form asp-controller="Brands" id="myform" asp-action="Add" method="post" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="text-danger" asp-validation-summary="All"></div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div class="controls">
+                                                    <label asp-for="Name">Brand Name</label>
+                                                    <input asp-for="Name" class="form-control" placeholder="Brand Name">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                                            <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">
+                                                Add Brand
+                                            </button>
+                                            <a asp-controller="Dashboard" asp-action="Dashboard" class="btn btn-light mb-1">Cancel</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </section>
+            <!--/ Description -->
+
+
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+@section Scripts{
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#myImagePerview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+        $("#select-files").change(function() {
+            readURL(this);
+        });
+    </script>
+}

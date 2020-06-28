@@ -29,7 +29,9 @@ namespace OnlineShopping.Areas.Admin.Controllers
                 CategoriesCount = _unitOfWork.CategoryRepository.Count(null),
                 MembersCount = _userManager.Users.Count(),
                 OrdersCount = _unitOfWork.OrderRepository.Count(null),
-                ProductsCount = _unitOfWork.ProductRepository.Count(null)
+                ProductsCount = _unitOfWork.ProductRepository.Count(null),
+                BrandCount = _unitOfWork.BrandRepository.Count(null)
+
             };
             return View(model);
         }
