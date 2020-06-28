@@ -523,7 +523,7 @@ namespace OnlineShopping.Migrations
             modelBuilder.Entity("OnlineShopping.Core.DbEntities.ProductImage", b =>
                 {
                     b.HasOne("OnlineShopping.Core.DbEntities.Product", "Product")
-                        .WithMany()
+                        .WithMany("productImages")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
