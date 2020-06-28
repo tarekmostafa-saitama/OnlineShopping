@@ -34,11 +34,12 @@ namespace OnlineShopping.Controllers
         public IActionResult GetProduct(int id)
         {
             var Category = unitOfWork.CategoryRepository.Get(id, new string[0] { });
-            ViewData["Categories"] = unitOfWork.CategoryRepository.GetAll( new string[0] { });
+            ViewData["Categories"] = unitOfWork.CategoryRepository.GetAll(new string[0] { });
             ViewData["Brands"] = unitOfWork.BrandRepository.GetAll(new string[0] { });
 
             var Products = unitOfWork.ProductRepository.Find(i => i.CategoryId == Category.Id, new string[0] { }).ToList();
             return View(Products);
+        }
 
         public IActionResult Search(String ProductName,int categories)
         {
