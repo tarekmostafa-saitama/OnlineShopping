@@ -20,6 +20,7 @@ namespace OnlineShopping.Core.DbEntities
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
+        public ICollection<ProductImage> productImages { get; set; }
         public ICollection<OrderProductDetail> OrderProductDetails { get; set; }
         public ICollection<MemberProductFavourite> MemberProductFavourites { get; set; }
         public ICollection<ProductImage> ProductImages { get; set; }

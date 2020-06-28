@@ -1,0 +1,40 @@
+﻿@model OnlineShopping.Persistence.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@for (int i = 0; i < 8; i++)
+{
+    <div class="col-md-3">
+
+        <div class="card w-100 m-2" style="width: 18rem;">
+            <img class="card-img-top card-img" style="height:240px" src="@Model.products.ToList()[i].productImages.ToList().FirstOrDefault().Path" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title text-center">@Model.products.ToList()[i].Title</h5>
+                <p class="card-text">
+                    Price : <span class="price">@Model.products.ToList()[i].Price $</span><br />
+                    Category : <span>@Model.products.ToList()[i].Category.Name</span><br />
+                    Brand : <span>@Model.products.ToList()[i].Brand.Name</span>
+                </p>
+                <a href="/home/details/@Model.products.ToList()[i].Id" class="btn m-auto btn-block" style="background-color:#FF324D;">Details</a>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Brand{
+
+    @Html.Partial("_Brand")
+
+}
+
+@section Search{
+    @Html.Partial("_Search")
+
+}
+@section Category{
+    @Html.Partial("_Category")
+}
+

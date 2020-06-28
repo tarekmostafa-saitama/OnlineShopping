@@ -1,0 +1,51 @@
+﻿@model OnlineShopping.Persistence.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "GetCategoryItems";
+
+}
+
+@if (Model.products.Count() == 0)
+{
+    <div class="m-auto font-weight-bolder ">No Items Found</div>
+}
+else
+{
+
+    @foreach (var item in Model.products)
+    {
+
+        <div class="col-md-3">
+
+            <div class="card w-100 m-2" style="width: 18rem;">
+                <img class="card-img-top card-img" style="height:240px" src="@item.productImages.ToList().FirstOrDefault().Path" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title text-center">@item.Title</h5>
+                    <p class="card-text">
+                        Price : <span class="price">@item.Price $</span><br />
+                        Category : <span>@item.Category.Name</span><br />
+                        Brand : <span>@item.Brand.Name</span>
+                    </p>
+                    <a href="/home/details/@item.Id" class="btn btn-primary m-auto btn-block" style="background-color:#FF324D;">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+
+
+@section Category{
+    @Html.Partial("_Category")
+
+}
+
+@section Search{
+    @Html.Partial("_Search")
+}
+@section Brand{
+
+    @Html.Partial("_Brand")
+
+}   
