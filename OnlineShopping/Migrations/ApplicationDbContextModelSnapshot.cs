@@ -520,7 +520,7 @@ namespace OnlineShopping.Migrations
             modelBuilder.Entity("OnlineShopping.Core.DbEntities.ProductImage", b =>
                 {
                     b.HasOne("OnlineShopping.Core.DbEntities.Product", "Product")
-                        .WithMany("productImages")
+                        .WithMany("ProductImages")
 
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)

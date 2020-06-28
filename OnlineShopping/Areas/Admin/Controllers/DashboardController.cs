@@ -26,6 +26,8 @@ namespace OnlineShopping.Areas.Admin.Controllers
         [Route("Admin/Dashboard")]
         public IActionResult Dashboard()
         {
+           
+           
             var model = new DashboardViewModel()
             {
                 CategoriesCount = _unitOfWork.CategoryRepository.Count(null),

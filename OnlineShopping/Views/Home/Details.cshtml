@@ -104,15 +104,15 @@
         <tr>
             <td rowspan="8">
                 <div class="border-dark">
-                    <img src="@Model.productImages.ToList().FirstOrDefault().Path" alt="product_img1">
+                    <img src="@Model.ProductImages.ToList().FirstOrDefault().Path" alt="product_img1">
                     <div>
                         <table>
                             <tr>
                                 <td>
-                                    <img width="50px" src="@Model.productImages.ToList().FirstOrDefault().Path" alt="product_img1">
+                                    <img width="50px" src="@Model.ProductImages.ToList().FirstOrDefault().Path" alt="product_img1">
                                 </td>
                                 <td>
-                                    <img width="50px" src="@Model.productImages.ToList().LastOrDefault().Path" alt="product_img1">
+                                    <img width="50px" src="@Model.ProductImages.ToList().LastOrDefault().Path" alt="product_img1">
                                 </td>
                             </tr>
                         </table>
@@ -228,7 +228,7 @@
             {
                 <div class="col-sm-4">
                     <div class="card">
-                        @*<img width="80px" src="@item.productImages.ToList().FirstOrDefault().Path" alt="product_img1">*@
+                        @*<img width="80px" src="@item.ProductImages.ToList().FirstOrDefault().Path" alt="product_img1">*@
                         <div class="card-body">
                             <a class="btn btn-link" asp-action="Details" asp-route-id="@item.Id">@item.Title</a>
                             <p class="card-text">@item.Description</p>

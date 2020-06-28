@@ -24,7 +24,7 @@ namespace OnlineShopping.Controllers
             {
                 brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
                 categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
-                products = unitOfWork.ProductRepository.GetAll(new string[] { "productImages", "Brand", "Category" }).ToList()
+                products = unitOfWork.ProductRepository.GetAll(new string[] { "ProductImages", "Brand", "Category" }).ToList()
             };
         }
 
@@ -53,7 +53,7 @@ namespace OnlineShopping.Controllers
             {
                 brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
                 categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
-                products = unitOfWork.ProductRepository.Find(oh => oh.Title.Contains(ProductName) && oh.CategoryId == categories, new string[] { "productImages", "Brand", "Category" }).ToList()
+                products = unitOfWork.ProductRepository.Find(oh => oh.Title.Contains(ProductName) && oh.CategoryId == categories, new string[] { "ProductImages", "Brand", "Category" }).ToList()
         };
 
             return View("GetCategoryItems", homeViewModel);
