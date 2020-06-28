@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using OnlineShopping.Core;
 using OnlineShopping.Persistence.ViewModels;
 
@@ -48,5 +49,15 @@ namespace OnlineShopping.Controllers
             return View(productList);
 
         }
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            var product = unitOfWork.ProductRepository.Get(id, new string[] { });
+            var products = unitOfWork.ProductRepository.GetAll(new string[0] { }).ToList();
+            ViewData["relprod"] = products.Where(item => item.CategoryId == product.CategoryId).ToList();
+            return View(product);
+        }
+
+        
     }
 }
