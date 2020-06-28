@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+@model LoginViewModel
+@{
+    Layout = null;
+}
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Admin Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- BEGIN: Vendor CSS-->
+    <link href="~/DashboardAssets/vendors/css/vendors-rtl.min.css" rel="stylesheet" />
+    <link href="~/DashboardAssets/vendors/css/ui/prism.min.css" rel="stylesheet" />
+    <!-- END: Vendor CSS-->
+    <!-- BEGIN: Theme CSS-->
+
+    <link href="~/DashboardAssets/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/DashboardAssets/css/bootstrap-extended.css" rel="stylesheet" />
+    <link href="~/DashboardAssets/css/colors.css" rel="stylesheet" />
+    <link href="~/DashboardAssets/css/components.css" rel="stylesheet" />
+    <link href="~/DashboardAssets/css/themes/dark-layout.css" rel="stylesheet" />
+    <link href="~/DashboardAssets/css/themes/semi-dark-layout.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!-- BEGIN: Page CSS-->
+
+    <link href="~/DashboardAssets/css/core/menu/menu-types/vertical-menu.css" rel="stylesheet" />
+    <!-- END: Page CSS-->
+
+
+</head>
+<!-- END: Head-->
+<!-- BEGIN: Body-->
+<body class="vertical-layout vertical-menu-modern dark-layout 1-column  navbar-sticky footer-static bg-full-screen-image  blank-page blank-page" data-open="click" data-menu="vertical-menu-modern" data-col="1-column" data-layout="dark-layout">
+    <!-- BEGIN: Content-->
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- login page start -->
+                <section id="auth-login" class="row flexbox-container">
+                    <div class="col-xl-8 col-11">
+                        <div class="card bg-authentication mb-0">
+                            <div class="row m-0">
+                                <!-- left section-login -->
+                                <div class="col-md-6 col-12 px-0">
+                                    <div class="card disable-rounded-right mb-0 p-2 h-100 d-flex justify-content-center">
+                                        <div class="card-header pb-1">
+                                            <div class="card-title">
+                                                <h4 class="text-center mb-2">Welcome back</h4>
+                                            </div>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="card-body">
+
+                                                <form asp-controller="Auth" asp-action="Login">
+                                                    <div class="form-group mb-50">
+                                                        <label class="text-bold-600" asp-for="UserName">User name</label>
+                                                        <input class="form-control" asp-for="UserName"
+                                                               placeholder="User name">
+                                                    </div>
+                                                    <div class="form-group mb-50">
+                                                        <label class="text-bold-600" asp-for="Password">Password</label>
+                                                        <input class="form-control" asp-for="Password"
+                                                               placeholder="Password">
+                                                    </div>
+                                                
+                                                    <button type="submit" class="btn btn-primary glow w-100 position-relative">
+                                                        Login <i id="icon-arrow" class="bx bx-right-arrow-alt"></i>
+                                                    </button>
+                                                    <br/><br/>
+                                                    <div asp-validation-summary="All" class="text-danger"></div> 
+                                                </form>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- right section image -->
+                                <div class="col-md-6 d-md-block d-none text-center align-self-center p-3">
+                                    <div class="card-content">
+                                        <img class="img-fluid" src="/DashboardAssets/images/pages/login.png" alt="branding logo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- login page ends -->
+
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+    
+<!-- BEGIN: Vendor JS-->
+<script src="~/DashboardAssets/vendors/js/vendors.min.js"></script>
+<script src="~/DashboardAssets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js"></script>
+<script src="~/DashboardAssets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js"></script>
+<script src="~/DashboardAssets/fonts/LivIconsEvo/js/LivIconsEvo.min.js"></script>
+<script src="~/DashboardAssets/vendors/js/forms/select/select2.js"></script>
+
+<!-- BEGIN Vendor JS-->
+<!-- BEGIN: Page Vendor JS-->
+<script src="~/DashboardAssets/vendors/js/ui/prism.min.js"></script>
+
+<!-- END: Page Vendor JS-->
+<!-- BEGIN: Theme JS-->
+
+<script src="~/DashboardAssets/js/scripts/configs/vertical-menu-dark.js"></script>
+
+<script src="~/DashboardAssets/js/core/app-menu.js"></script>
+<script src="~/DashboardAssets/js/core/app.js"></script>
+</body>
+<!-- END: Body-->
+</html>

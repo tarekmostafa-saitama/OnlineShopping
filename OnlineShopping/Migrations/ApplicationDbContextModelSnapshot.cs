@@ -175,9 +175,6 @@ namespace OnlineShopping.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -524,6 +521,7 @@ namespace OnlineShopping.Migrations
                 {
                     b.HasOne("OnlineShopping.Core.DbEntities.Product", "Product")
                         .WithMany("productImages")
+
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

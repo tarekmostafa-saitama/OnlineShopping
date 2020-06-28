@@ -38,6 +38,7 @@ namespace OnlineShopping
                 option.Password.RequireLowercase = false;
 
             }).AddEntityFrameworkStores<ApplicationDbContext>();
+           
             services.AddControllersWithViews();
         }
 

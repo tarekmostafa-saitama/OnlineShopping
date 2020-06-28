@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+
+<html class="loading" lang="en" data-textdirection="rtl">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/DashboardAssets/images/ico/favicon.ico">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- BEGIN: Vendor CSS-->
+    <link href="~/DashboardAssets/vendors/css/vendors-rtl.min.css" rel="stylesheet" />
+    <link href="~/DashboardAssets/vendors/css/ui/prism.min.css" rel="stylesheet" />
+    <!-- END: Vendor CSS-->
+    <!-- BEGIN: Theme CSS-->
+
+    <link href="~/DashboardAssets/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/DashboardAssets/css/bootstrap-extended.css" rel="stylesheet" />
+    <link href="~/DashboardAssets/css/colors.css" rel="stylesheet" />
+    <link href="~/DashboardAssets/css/components.css" rel="stylesheet" />
+    <link href="~/DashboardAssets/css/themes/dark-layout.css" rel="stylesheet" />
+    <link href="~/DashboardAssets/css/themes/semi-dark-layout.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!-- BEGIN: Page CSS-->
+
+    <link href="~/DashboardAssets/css/core/menu/menu-types/vertical-menu.css" rel="stylesheet" />
+    <!-- END: Page CSS-->
+
+
+</head>
+<!-- END: Head-->
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern dark-layout 2-columns  navbar-sticky footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+
+    <!-- BEGIN: Header-->
+    <div class="header-navbar-shadow"></div>
+    <nav class="header-navbar main-header-navbar navbar-expand-lg navbar navbar-with-menu navbar-static-top navbar-dark">
+        <div class="navbar-wrapper">
+            <div class="navbar-container content">
+                <div class="navbar-collapse" id="navbar-mobile">
+                    <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon bx bx-menu"></i></a></li>
+                        </ul>
+
+
+                    </div>
+                    <ul class="nav navbar-nav float-right">
+
+                        <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon bx bx-fullscreen"></i></a></li>
+
+
+                        <li class="dropdown dropdown-user nav-item">
+                            <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                                <div class="user-nav d-sm-flex "><span class="user-name">Admin Account</span></div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                @*<a class="dropdown-item" href="#"><i class="bx bx-user mr-50"></i> تعديل بيانات الحساب</a>*@
+                                <a class="dropdown-item" asp-controller="Auth" asp-action="ChangePassword"><i class="bx bx-key mr-50"></i>Change Password</a>
+
+                                <div class="dropdown-divider"></div><a class="dropdown-item" asp-controller="Auth" asp-action="Logout"><i class="bx bx-power-off mr-50"></i>Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- END: Header-->
+    <!-- BEGIN: Main Menu-->
+    <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav flex-row">
+                <li class="nav-item mr-auto">
+                    <a class="navbar-brand" asp-action="Dashboard" asp-controller="Dashboard">
+                        <div class="brand-logo"><img class="logo" src="../../../DashboardAssets/images/logo/logo.png" /></div>
+                        <h2 class="brand-text mb-0">Frest</h2>
+                    </a>
+                </li>
+                <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="bx bx-x d-block d-xl-none font-medium-4 primary toggle-icon"></i><i class="toggle-icon bx bx-disc font-medium-4 d-none d-xl-block primary" data-ticon="bx-disc"></i></a></li>
+            </ul>
+        </div>
+        <div class="shadow-bottom"></div>
+        <div class="main-menu-content">
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
+                <li class=" nav-item">
+                    <a asp-controller="Dashboard" asp-action="Dashboard"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="">Home</span></a>
+                </li>
+
+                <li class=" nav-item">
+                    <a href="#"><i class="menu-livicon" data-icon="building"></i><span class="menu-title" data-i18n="">Categories Section</span></a>
+                    <ul class="menu-content">
+            
+                        <li>
+                            <a asp-controller="Categories" asp-action="List"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="nav.sk_starter_kit.static_layout">Categories List</span></a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class=" nav-item">
+                    <a href="#"><i class="menu-livicon" data-icon="pie-chart"></i><span class="menu-title" data-i18n="">Brands Section</span></a>
+                    <ul class="menu-content">
+                        <li>
+                            <a asp-controller="Brands" asp-action="Add"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="nav.sk_starter_kit.static_layout">Add new Brand</span></a>
+                        </li>
+                        <li>
+                            <a asp-controller="Brands" asp-action="List"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="nav.sk_starter_kit.static_layout">Brands List</span></a>
+                        </li>
+                    </ul>
+                </li>
+
+                @*<li class=" nav-item">
+                    <a href="#"><i class="menu-livicon" data-icon="morph-folder"></i><span class="menu-title" data-i18n="">قسم الشهادات</span></a>
+                    <ul class="menu-content">
+                        <li>
+                            <a asp-controller="Certificate" asp-action="Add"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="nav.sk_starter_kit.static_layout">اضافة شهادة جديدة</span></a>
+                        </li>
+                        <li>
+                            <a asp-controller="Certificate" asp-action="List"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="nav.sk_starter_kit.static_layout">قائمة الشهادات</span></a>
+                        </li>
+                    </ul>
+                </li>*@
+
+                <li class=" nav-item">
+                    <a asp-controller="Products" asp-action="Add"><i class="menu-livicon" data-icon="anchor"></i><span class="menu-title" data-i18n="">Add new Product</span></a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!-- END: Main Menu-->
+
+    @RenderBody()
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+
+    <!-- BEGIN: Vendor JS-->
+    <script src="~/DashboardAssets/vendors/js/vendors.min.js"></script>
+    <script src="~/DashboardAssets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js"></script>
+    <script src="~/DashboardAssets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js"></script>
+    <script src="~/DashboardAssets/fonts/LivIconsEvo/js/LivIconsEvo.min.js"></script>
+    <script src="~/DashboardAssets/vendors/js/forms/select/select2.js"></script>
+
+    <!-- BEGIN Vendor JS-->
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="~/DashboardAssets/vendors/js/ui/prism.min.js"></script>
+
+    <!-- END: Page Vendor JS-->
+    <!-- BEGIN: Theme JS-->
+
+    <script src="~/DashboardAssets/js/scripts/configs/vertical-menu-dark.js"></script>
+
+    <script src="~/DashboardAssets/js/core/app-menu.js"></script>
+    <script src="~/DashboardAssets/js/core/app.js"></script>
+    @RenderSection("Scripts", false)
+    <!-- END: Theme JS-->
+    <!-- BEGIN: Page JS-->
+    <!-- END: Page JS-->
+
+</body>
+<!-- END: Body-->
+
+</html>
