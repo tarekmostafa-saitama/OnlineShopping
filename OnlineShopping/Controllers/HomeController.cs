@@ -39,6 +39,13 @@ namespace OnlineShopping.Controllers
 
             var Products = unitOfWork.ProductRepository.Find(i => i.CategoryId == Category.Id, new string[0] { }).ToList();
             return View(Products);
+
+        public IActionResult Search(String ProductName,int categories)
+        {
+            var productList = unitOfWork.ProductRepository.Find(oh => oh.Title.Contains(ProductName) && oh.CategoryId== categories, new string[] { "productImages", "Brand", "Category" }).ToList();
+
+            return View(productList);
+
         }
     }
 }
