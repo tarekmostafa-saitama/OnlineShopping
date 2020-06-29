@@ -1,4 +1,6 @@
 ﻿@model HomeViewModel
+
+
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/shared/_AccountLayout.cshtml";
@@ -17,13 +19,13 @@
                 <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
                     <div class="product-image">
                         <div class="product_img_box">
-                            <img id="product_img" style="width:100%;height:100%" src='@Model.products.ToList()[myProdindex].productImages.ToList().FirstOrDefault().Path' data-zoom-image="assets/images/product_zoom_img1.jpg" alt="product_img1">
+                            <img id="product_img" style="width:100%;height:100%" src='@Model.products.ToList()[myProdindex].ProductImages.ToList().FirstOrDefault().Path' data-zoom-image="assets/images/product_zoom_img1.jpg" alt="product_img1">
                             <a href="#" class="product_img_zoom" title="Zoom">
                                 <span class="linearicons-zoom-in"></span>
                             </a>
                         </div>
                         <div id="pr_item_gallery" class="product_gallery_item slick_slider" data-slides-to-show="4" data-slides-to-scroll="1" data-infinite="false">
-                            @foreach (var item in Model.products.ToList()[myProdindex].productImages)
+                            @foreach (var item in Model.products.ToList()[myProdindex].ProductImages)
                             {
                                 <div class="item">
                                     <a href="#" class="product_gallery_item active" data-image="assets/images/product_img1.jpg" data-zoom-image="assets/images/product_zoom_img1.jpg">
@@ -199,7 +201,7 @@
                 <div class="col-md-3 m-1">
 
                     <div class="card width-150 m-2" style="width: 18rem;">
-                        <img class="card-img-top card-img" style="height:240px" src="@Model.products.ToList()[i].productImages.ToList().FirstOrDefault().Path" alt="Card image cap">
+                        <img class="card-img-top card-img" style="height:240px" src="@Model.products.ToList()[i].ProductImages.ToList().FirstOrDefault().Path" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title text-center">@Model.products.ToList()[i].Title</h5>
                             <p class="card-text">
@@ -207,7 +209,7 @@
                                 Category : <span>@Model.products.ToList()[i].Category.Name</span><br />
                                 Brand : <span>@Model.products.ToList()[i].Brand.Name</span>
                             </p>
-                            <a href="/home/details/@Model.products.ToList()[i].Id" class="btn btn-primary m-auto btn-block" style="background-color:#FF324D;">Details</a>
+                            <a asp-action="Details" asp-controller="Product" asp-route-id="@Model.products.ToList()[i].Id" class="btn btn-primary m-auto btn-block" style="background-color:#FF324D;">Details</a>
                         </div>
                     </div>
                 </div>
@@ -215,7 +217,6 @@
         </div>
     </div>
 </div>
-        </div>
 
 
 
@@ -227,28 +228,3 @@
     @Html.Partial("_Category")
 }
 
-
-
-@*<div class="btn-group btn-group-lg my-5 mx-3">
-
-    <a class="btn btn-outline-primary active" onclick='document.getElementById("desc").style.display = "block";
-
-     document.getElementById("table").style.display = "none";
-       document.getElementById("reviews").style.display = "none";'>Description</a>
-
-        <a class="btn btn-outline-secondary" onclick='document.getElementById("table").style.display = "block";
-       document.getElementById("desc").style.display = "none";
-       document.getElementById("reviews").style.display = "none";'>Additional Info</a>
-           <a class="btn btn-outline-success" onclick='document.getElementById("reviews").style.display = "block";
-       document.getElementById("desc").style.display = "none";
-       document.getElementById("table").style.display = "none";'>Reviews</a>
-       </div>
-       <div id="data" class="bg-light mx-3">
-           <div id="desc" style="display:block">
-               @Model.Description
-           </div>
-           <div id="reviews" style="display:none">
-               Comments
-           </div>
-       </div>
-*@

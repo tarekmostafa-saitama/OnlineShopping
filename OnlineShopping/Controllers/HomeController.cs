@@ -28,12 +28,12 @@ namespace OnlineShopping.Controllers
             };
         }
 
-
+        [Route("/Home")]
         public IActionResult Index()
         {
             return View(homeViewModel);
         }
-
+        [Route("/Home/GetCategoryItems/{id}")]
         public IActionResult GetCategoryItems(int id)
         {
             homeViewModel = new HomeViewModel()
@@ -45,7 +45,7 @@ namespace OnlineShopping.Controllers
 
             return View(homeViewModel);
         }
-
+        [Route("/Home/Search")]
         public IActionResult Search(String ProductName, int categories)
         {
 
@@ -53,27 +53,13 @@ namespace OnlineShopping.Controllers
             {
                 brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
                 categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
-                products = unitOfWork.ProductRepository.Find(oh => oh.Title.Contains(ProductName) && oh.CategoryId == categories, new string[] { "productImages", "Brand", "Category" }).ToList()
+                products = unitOfWork.ProductRepository.Find(oh => oh.Title.Contains(ProductName) && oh.CategoryId == categories, new string[] { "ProductImages", "Brand", "Category" }).ToList()
             };
 
             return View("GetCategoryItems", homeViewModel);
 
         }
-        [HttpGet]
-        public IActionResult Details(int id)
-        {
-            var product = unitOfWork.ProductRepository.Get(id, new string[] { });
-
-            homeViewModel = new HomeViewModel()
-            {
-                brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
-                categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
-                products = unitOfWork.ProductRepository.GetAll(new string[0] { }).ToList().Where(item => item.CategoryId == product.CategoryId && item.Id != id).Take(3).ToList()
-            };
-
-            homeViewModel.products.Add(product);
-            return View(homeViewModel);
-        }
+        
 
 
     }
