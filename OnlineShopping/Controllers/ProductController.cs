@@ -41,24 +41,51 @@ namespace OnlineShopping.Controllers
             return View(homeViewModel);
         }
 
-        [HttpPost]
         [Authorize(Roles = "Member")]
-        [Route("/Product/addToFavourite/{id}")]
-        public async Task<IActionResult> addToFavouriteAsync(int id)
+        [Route("/Product/AddFavourite/{id}")]
+        public async Task<IActionResult> AddFavouriteAsync(int id)
         {
-            var prd = unitOfWork.ProductRepository.Get(id, new string[] { });
             Member myUser = await userManager.GetUserAsync(User);
-            MemberProductFavourite memberProductFavourite = new MemberProductFavourite()
+            var chkFav = unitOfWork.MemberProductFavouriteRepository.Find(w => w.ProductId == id && w.MemberId == myUser.Id, new string[] { });
+           if(chkFav.Count() == 0)
             {
-                Member = myUser,
-                MemberId = myUser.Id,
-                Product = prd,
-                ProductId = prd.Id
+                var prd = unitOfWork.ProductRepository.Get(id, new string[] { });
 
-            };
-            unitOfWork.MemberProductFavouriteRepository.Add(memberProductFavourite);
-            unitOfWork.Complete();
-            return View();
+                MemberProductFavourite memberProductFavourite = new MemberProductFavourite()
+                {
+                    Member = myUser,
+                    MemberId = myUser.Id,
+                    Product = prd,
+                    ProductId = prd.Id
+
+                };
+                unitOfWork.MemberProductFavouriteRepository.Add(memberProductFavourite);
+                unitOfWork.Complete();
+            }
+            
+            return RedirectToAction("index", "Home");
         }
+
+        [Authorize(Roles = "Member")]
+        [Route("/Product/GetFavourite")]
+        public async Task<IActionResult> GetFavouriteAsync()
+        {
+            Member myUser = await userManager.GetUserAsync(User);
+            IEnumerable<MemberProductFavourite> favprds = unitOfWork.MemberProductFavouriteRepository.Find(x => x.MemberId == myUser.Id && x.Product.IsDeleted == false, new string[] { "Product" });
+            foreach (var item in favprds)
+            {
+                item.Product.ProductImages = unitOfWork.ProductImageRepository.Find(w => w.ProductId == item.ProductId, new string[] { }).ToList();
+            }
+            homeViewModel = new HomeViewModel()
+            {
+                brands = null,
+                products = null,
+                categories = unitOfWork.CategoryRepository.GetAll(new string[] { }).ToList()
+            };
+            ViewBag.e = homeViewModel;
+            return View(favprds);
+        }
+
+
     }
 }
