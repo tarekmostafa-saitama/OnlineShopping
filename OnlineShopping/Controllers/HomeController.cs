@@ -27,7 +27,7 @@ namespace OnlineShopping.Controllers
                 products = unitOfWork.ProductRepository.GetAll(new string[] { "ProductImages", "Brand", "Category" }).ToList()
             };
         }
-
+        [Route("~/")]
         [Route("/Home")]
         public IActionResult Index()
         {
