@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShopping.Core;
+using OnlineShopping.Core.DbEntities;
 using OnlineShopping.Persistence.ViewModels;
 
 namespace OnlineShopping.Controllers
@@ -13,10 +15,12 @@ namespace OnlineShopping.Controllers
     {
         IUnitOfWork unitOfWork;
         HomeViewModel homeViewModel;
+        UserManager<Member> userManager;
 
-        public ProductController(IUnitOfWork _unitOfWork)
+        public ProductController(IUnitOfWork _unitOfWork, UserManager<Member> _userManager)
         {
             unitOfWork = _unitOfWork;
+            userManager = _userManager;
 
         }
 
@@ -35,6 +39,26 @@ namespace OnlineShopping.Controllers
 
             homeViewModel.products.Add(product);
             return View(homeViewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Member")]
+        [Route("/Product/addToFavourite/{id}")]
+        public async Task<IActionResult> addToFavouriteAsync(int id)
+        {
+            var prd = unitOfWork.ProductRepository.Get(id, new string[] { });
+            Member myUser = await userManager.GetUserAsync(User);
+            MemberProductFavourite memberProductFavourite = new MemberProductFavourite()
+            {
+                Member = myUser,
+                MemberId = myUser.Id,
+                Product = prd,
+                ProductId = prd.Id
+
+            };
+            unitOfWork.MemberProductFavouriteRepository.Add(memberProductFavourite);
+            unitOfWork.Complete();
+            return View();
         }
     }
 }
