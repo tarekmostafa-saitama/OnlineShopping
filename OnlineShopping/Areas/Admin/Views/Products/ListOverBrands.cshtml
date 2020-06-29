@@ -1,8 +1,8 @@
-﻿@using System.Collections.Specialized
-@model IEnumerable<Brand>
+﻿@model Brand
 @{
-    ViewData["Title"] = "Brands List";
+    ViewData["Title"] = "Brand Products";
 }
+
 
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -22,7 +22,7 @@
                                     <a>Brands</a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    Brands List
+                                    Products List
                                 </li>
                             </ol>
                         </div>
@@ -34,49 +34,43 @@
             <!-- Description -->
             <section id="description" class="card">
                 <div class="card-header">
-                    <h4 class="card-title">
-                
-                        <a asp-action="Add" class="btn btn-primary">Add new Brand</a>
-                    </h4>
+                    <h3 class="card-title">
+
+                        @Model.Name : Products List
+                    </h3>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
                         <table class="table table-striped" id="tbl">
                             <thead>
                                 <tr>
-                                    <th>Brand Name</th>
-                                    <th>Number of Products</th>
+                                    <th>Product Name</th>
+                                    <th>Product Price</th>
                                     <th>Operations</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (!Model.Any())
+                                @if (!Model.Products.Any())
                                 {
                                     <tr>
                                         <td colspan="3">
-                                            <h2 class="text-danger text-center">There is no Brands yet.</h2>
+                                            <h2 class="text-danger text-center">There is no Products yet.</h2>
                                         </td>
                                     </tr>
                                 }
-                                @foreach (var brand in Model)
+                                @foreach (var product in Model.Products)
                                 {
                                     <tr>
-                                        <td>@brand.Name</td>
-                                        <td>@brand.Products.Count</td>
-
-                                        <td>
+                                        <td>@product.Title</td>
+                                        <td>@product.Price</td>
+                                        <td></td>
+                                        @*<td>
                                             <a class="btn btn-danger deleteForm" style="color: #FFF !important; top: unset !important"
-                                               asp-route-id="@brand.Id"
+                                               asp-route-id="@product.Id"
                                                asp-action="Delete" asp-controller="Brands">
                                                 <i style="color: #FFF !important; top: unset !important" class="fa fa-trash-o"></i>
                                             </a>
-                                            
-                                            <a class="btn btn-info" style="color: #FFF !important; top: unset !important"
-                                               asp-route-brandId="@brand.Id"
-                                               asp-action="ListOverBrands" asp-controller="Products">
-                                                <i style="color: #FFF !important; top: unset !important" class="fa fa-address-card"></i>
-                                            </a>
-                                        </td>
+                                        </td>*@
                                     </tr>
                                 }
 
@@ -107,33 +101,35 @@
 
         });
 
-        $('.deleteForm').click(function (e) {
-            let event = e;
-            e.preventDefault();
-            bootbox.confirm({
-                message: "Are you sure you want to delete ?",
-                buttons: {
-                    confirm: {
-                        label: 'Yes',
-                        className: 'btn-success'
-                    },
-                    cancel: {
-                        label: 'No',
-                        className: 'btn-danger'
-                    }
-                },
-                callback: function (result) {
-                    if (result) {
-                        if (e.target.href) {
-                            window.location.href = e.target.href;
-                        } else {
-                            window.location.href = e.target.parentElement.href;
-                        }
-                    }
-                }
-            });
+        //$('.deleteForm').click(function (e) {
+        //    let event = e;
+        //    e.preventDefault();
+        //    bootbox.confirm({
+        //        message: "Are you sure you want to delete ?",
+        //        buttons: {
+        //            confirm: {
+        //                label: 'Yes',
+        //                className: 'btn-success'
+        //            },
+        //            cancel: {
+        //                label: 'No',
+        //                className: 'btn-danger'
+        //            }
+        //        },
+        //        callback: function (result) {
+        //            if (result) {
+        //                if (e.target.href) {
+        //                    window.location.href = e.target.href;
+        //                } else {
+        //                    window.location.href = e.target.parentElement.href;
+        //                }
+        //            }
+        //        }
+        //    });
 
-        });
+        //});
 
     </script>
 }
+
+

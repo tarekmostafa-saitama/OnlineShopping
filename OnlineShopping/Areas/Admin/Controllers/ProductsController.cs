@@ -70,5 +70,29 @@ namespace OnlineShopping.Areas.Admin.Controllers
             }
             return RedirectToAction("Add");
         }
+        [Route("Admin/Category/{categoryId}/Products/List")]
+        public IActionResult ListOverCategories(int categoryId)
+        {
+            var category = _unitOfWork.CategoryRepository.Find(x => x.Id == categoryId, new[] {"Products"})
+                .FirstOrDefault();
+            if (category == null)
+            {
+                ViewBag.Error = "Category not found.";
+                return View("Error");
+            }
+            return View(category);
+        }
+        [Route("Admin/Brand/{brandId}/Products/List")]
+        public IActionResult ListOverBrands(int brandId)
+        {
+            var brand = _unitOfWork.BrandRepository.Find(x => x.Id == brandId, new[] { "Products" })
+                .FirstOrDefault();
+            if (brand == null)
+            {
+                ViewBag.Error = "Brand not found.";
+                return View("Error");
+            }
+            return View(brand);
+        }
     }
 }
