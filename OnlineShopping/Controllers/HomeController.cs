@@ -46,15 +46,15 @@ namespace OnlineShopping.Controllers
             return View(homeViewModel);
         }
 
-        public IActionResult Search(String ProductName,int categories)
+        public IActionResult Search(String ProductName, int categories)
         {
-           
+
             homeViewModel = new HomeViewModel()
             {
                 brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
                 categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
                 products = unitOfWork.ProductRepository.Find(oh => oh.Title.Contains(ProductName) && oh.CategoryId == categories, new string[] { "productImages", "Brand", "Category" }).ToList()
-        };
+            };
 
             return View("GetCategoryItems", homeViewModel);
 
@@ -63,11 +63,18 @@ namespace OnlineShopping.Controllers
         public IActionResult Details(int id)
         {
             var product = unitOfWork.ProductRepository.Get(id, new string[] { });
-            var products = unitOfWork.ProductRepository.GetAll(new string[0] { }).ToList();
-            ViewData["relprod"] = products.Where(item => item.CategoryId == product.CategoryId).ToList();
-            return View(product);
+
+            homeViewModel = new HomeViewModel()
+            {
+                brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
+                categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
+                products = unitOfWork.ProductRepository.GetAll(new string[0] { }).ToList().Where(item => item.CategoryId == product.CategoryId && item.Id != id).Take(3).ToList()
+            };
+
+            homeViewModel.products.Add(product);
+            return View(homeViewModel);
         }
 
-        
+
     }
 }
