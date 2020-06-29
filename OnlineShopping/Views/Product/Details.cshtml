@@ -1,0 +1,230 @@
+﻿@model HomeViewModel
+
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/shared/_AccountLayout.cshtml";
+    var myProdindex = Model.products.Count() - 1;
+}
+
+
+
+
+<div class="main_content">
+
+    <!-- START SECTION SHOP -->
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
+                    <div class="product-image">
+                        <div class="product_img_box">
+                            <img id="product_img" style="width:100%;height:100%" src='@Model.products.ToList()[myProdindex].ProductImages.ToList().FirstOrDefault().Path' data-zoom-image="assets/images/product_zoom_img1.jpg" alt="product_img1">
+                            <a href="#" class="product_img_zoom" title="Zoom">
+                                <span class="linearicons-zoom-in"></span>
+                            </a>
+                        </div>
+                        <div id="pr_item_gallery" class="product_gallery_item slick_slider" data-slides-to-show="4" data-slides-to-scroll="1" data-infinite="false">
+                            @foreach (var item in Model.products.ToList()[myProdindex].ProductImages)
+                            {
+                                <div class="item">
+                                    <a href="#" class="product_gallery_item active" data-image="assets/images/product_img1.jpg" data-zoom-image="assets/images/product_zoom_img1.jpg">
+                                        <img src="@item.Path" alt="product_small_img1">
+                                    </a>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="pr_detail">
+                        <div class="product_description">
+                            <h4 class="product_title"><a href="#">@Html.DisplayFor(i => i.products.ToList()[myProdindex].Title)</a></h4>
+                            <div class="product_price">
+                                <span class="price">@Html.DisplayFor(i => i.products.ToList()[myProdindex].Price) $</span>
+                            </div>
+
+                            <div class="pr_desc">
+                                <p>@Html.DisplayFor(i => i.products.ToList()[myProdindex].Description)</p>
+                            </div>
+                            <div class="product_sort_info">
+                                <ul>
+                                    <li><i class="linearicons-shield-check"></i> @Html.DisplayFor(i => i.products.ToList()[myProdindex].Brand.Name)</li>
+                                    <li><i class="linearicons-sync"></i> 30 Day Return Policy</li>
+                                    <li><i class="linearicons-bag-dollar"></i> Cash on Delivery available</li>
+                                </ul>
+                            </div>
+                            <div class="pr_switch_wrap">
+                                <span class="switch_lable">Color</span>
+                                <div class="product_color_switch">
+                                    <span class="active" data-color="#87554B"></span>
+                                    <span data-color="#333333"></span>
+                                    <span data-color="#DA323F"></span>
+                                </div>
+                            </div>
+                            <div class="pr_switch_wrap">
+                                <span class="switch_lable">Size</span>
+                                <div class="product_size_switch">
+                                    <span>xs</span>
+                                    <span>s</span>
+                                    <span>m</span>
+                                    <span>l</span>
+                                    <span>xl</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="cart_extra">
+                            <div class="cart-product-quantity">
+                                <div class="quantity">
+                                    <input type="button" value="-" class="minus">
+                                    <input type="text" name="quantity" value="1" title="Qty" class="qty" size="4">
+                                    <input type="button" value="+" class="plus">
+                                </div>
+                            </div>
+                            <div class="cart_btn">
+                                <button class="btn btn-fill-out btn-addtocart" type="button"><i class="icon-basket-loaded"></i> Add to cart</button>
+                                <a class="add_compare" href="#"><i class="icon-shuffle"></i></a>
+                                <a class="add_wishlist" href="#"><i class="icon-heart"></i></a>
+                            </div>
+                        </div>
+                        <hr>
+                        <ul class="product-meta">
+                            <li>P#: <a href="#">@Html.DisplayFor(i => i.products.ToList()[myProdindex].Id)</a></li>
+                            <li>Category: <a href="#">@Html.DisplayFor(i => i.products.ToList()[myProdindex].Category.Name)</a></li>
+                        </ul>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="large_divider clearfix"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="tab-style3">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="Description-tab" data-toggle="tab" href="#Description" role="tab" aria-controls="Description" aria-selected="true" onclick='document.getElementById("desc").style.display = "block";
+
+         document.getElementById("table").style.display = "none";
+           document.getElementById("reviews").style.display = "none";'>Description</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="Additional-info-tab" data-toggle="tab" href="#Additional-info" role="tab" aria-controls="Additional-info" aria-selected="false" onclick='document.getElementById("table").style.display = "block";
+           document.getElementById("desc").style.display = "none";
+           document.getElementById("reviews").style.display = "none";'>Additional info</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="Reviews-tab" data-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false" onclick='document.getElementById("table").style.display = "none";
+           document.getElementById("desc").style.display = "none";
+           document.getElementById("reviews").style.display = "block";'>Reviews (2)</a>
+                            </li>
+                        </ul>
+                        <div class="tab-pane fade show active" id="data" role="tabpanel" aria-labelledby="Description-tab">
+                            <div id="desc" style="display:block" class="p-2">
+                                @Model.products.ToList()[myProdindex].Description;
+                            </div>
+                            <table id="table" style="display:none" class="table table-striped table-bordered">
+                                <tr>
+                                    <td>
+                                        Capacity
+                                    </td>
+                                    <td>
+                                        5KG
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Color
+                                    </td>
+                                    <td>
+                                        Red / White / Black
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Water resistence
+                                    </td>
+                                    <td>
+                                        Yes
+                                    </td>
+                                </tr>
+                            </table>
+                            <div id="reviews" style="display:none">
+                                <h5>Add a review</h5>
+                                <form class="row mt-3">
+                                    <div class="form-group col-12">
+                                        <div class="star_rating">
+                                            <span data-value="1"><i class="far fa-star"></i></span>
+                                            <span data-value="2"><i class="far fa-star"></i></span>
+                                            <span data-value="3"><i class="far fa-star"></i></span>
+                                            <span data-value="4"><i class="far fa-star"></i></span>
+                                            <span data-value="5"><i class="far fa-star"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <textarea required="required" placeholder="Your review *" class="form-control" name="message" rows="4"></textarea>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input required="required" placeholder="Enter Name *" class="form-control" name="name" type="text">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input required="required" placeholder="Enter Email *" class="form-control" name="email" type="email">
+                                    </div>
+
+                                    <div class="form-group col-12">
+                                        <button type="submit" class="btn btn-fill-out" name="submit" value="Submit">Submit Review</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="heading_s1">
+            <h3>Releted Products</h3>
+        </div>
+        <div class="row">
+            @for (int i = 0; i < Model.products.Count() - 1; i++)
+            {
+                <div class="col-md-3 m-1">
+
+                    <div class="card width-150 m-2" style="width: 18rem;">
+                        <img class="card-img-top card-img" style="height:240px" src="@Model.products.ToList()[i].ProductImages.ToList().FirstOrDefault().Path" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">@Model.products.ToList()[i].Title</h5>
+                            <p class="card-text">
+                                Price : <span class="price">@Model.products.ToList()[i].Price $</span><br />
+                                Category : <span>@Model.products.ToList()[i].Category.Name</span><br />
+                                Brand : <span>@Model.products.ToList()[i].Brand.Name</span>
+                            </p>
+                            <a asp-action="Details" asp-controller="Product" asp-route-id="@Model.products.ToList()[i].Id" class="btn btn-primary m-auto btn-block" style="background-color:#FF324D;">Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+@section Search{
+    @Html.Partial("_Search")
+
+}
+@section Category{
+    @Html.Partial("_Category")
+}
+

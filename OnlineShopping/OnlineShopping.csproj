@@ -10,7 +10,6 @@
     <Folder Include="Models\" />
     <Folder Include="wwwroot\Core\" />
     <Folder Include="wwwroot\DashboardAssets\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Core\DbEntitiesConfigurations\" />
     <Folder Include="Models\" />
     <Folder Include="Persistence\ViewModels\" />
