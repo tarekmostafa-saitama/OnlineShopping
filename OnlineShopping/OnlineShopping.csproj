@@ -6,11 +6,8 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Core\DbEntitiesConfigurations\" />
     <Folder Include="Models\" />
-    <Folder Include="Areas\" />
     <Folder Include="wwwroot\Core\" />
     <Folder Include="wwwroot\DashboardAssets\" />
     <Folder Include="Controllers\" />

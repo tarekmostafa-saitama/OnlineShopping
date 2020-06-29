@@ -1,7 +1,7 @@
 ﻿@using System.Collections.Specialized
-@model IEnumerable<Category>
+@model IEnumerable<Order>
 @{
-    ViewData["Title"] = "Categories List";
+    ViewData["Title"] = "Orders List";
 }
 
 <!-- BEGIN: Content-->
@@ -19,10 +19,10 @@
                                     <a><i class="bx bx-home-alt"></i></a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a>Categories</a>
+                                    <a>Orders</a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                   Categories List
+                                    Orders List
                                 </li>
                             </ol>
                         </div>
@@ -35,9 +35,8 @@
             <section id="description" class="card">
                 <div class="card-header">
                     <h4 class="card-title">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                           Add new Category
-                        </button>
+
+                  
                     </h4>
                 </div>
                 <div class="card-content">
@@ -45,8 +44,10 @@
                         <table class="table table-striped" id="tbl">
                             <thead>
                                 <tr>
-                                    <th>Category Name</th>
-                                    <th>Number of Products</th>
+                                    <th>Order Date</th>
+                                    <th>Order Address</th>
+                                    <th>Order Shipping State</th>
+                                    <th>Customer Username</th>
                                     <th>Operations</th>
                                 </tr>
                             </thead>
@@ -54,28 +55,31 @@
                                 @if (!Model.Any())
                                 {
                                     <tr>
-                                        <td colspan="3">
-                                            <h2 class="text-danger text-center">There is no categories yet.</h2>
+                                        <td colspan="5">
+                                            <h2 class="text-danger text-center">There is no orders yet.</h2>
                                         </td>
                                     </tr>
                                 }
-                                @foreach (var category in Model)
+                                @foreach (var order in Model)
                                 {
                                     <tr>
-                                        <td>@category.Name</td>
-                                        <td>@category.Products.Count</td>
-                                       
+                                        <td>@order.Date</td>
+                                        <td>@order.Address</td>
+                                        <td>@order.ShippingState</td>
+                                        <td>@order.Member.UserName</td>
+
                                         <td>
-                                            <a class="btn btn-danger deleteForm" style="color: #FFF !important; top: unset !important"
-                                               asp-route-id="@category.Id"
-                                               asp-action="Delete" asp-controller="Categories">
+                                            @*<a class="btn btn-danger deleteForm" style="color: #FFF !important; top: unset !important"
+                                               asp-route-id="@brand.Id"
+                                               asp-action="Delete" asp-controller="Brands">
                                                 <i style="color: #FFF !important; top: unset !important" class="fa fa-trash-o"></i>
                                             </a>
+
                                             <a class="btn btn-info" style="color: #FFF !important; top: unset !important"
-                                               asp-route-brandId="@category.Id"
-                                               asp-action="ListOverCategories" asp-controller="Products">
+                                               asp-route-brandId="@brand.Id"
+                                               asp-action="ListOverBrands" asp-controller="Products">
                                                 <i style="color: #FFF !important; top: unset !important" class="fa fa-address-card"></i>
-                                            </a>
+                                            </a>*@
                                         </td>
                                     </tr>
                                 }
@@ -104,7 +108,7 @@
     <script>
         $('#tbl').DataTable({
             //paging: false,
-           
+
         });
 
         $('.deleteForm').click(function (e) {
@@ -137,25 +141,3 @@
 
     </script>
 }
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form asp-action="AddCategory" asp-controller="Categories" method="post">
-                <div class="modal-body">
-                    <input type="text" required class="form-control" name="name"/>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Create Category</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>

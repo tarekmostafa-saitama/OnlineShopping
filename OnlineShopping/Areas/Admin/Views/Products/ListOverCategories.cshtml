@@ -1,8 +1,8 @@
-﻿@using System.Collections.Specialized
-@model IEnumerable<Category>
+﻿@model Category
 @{
-    ViewData["Title"] = "Categories List";
+    ViewData["Title"] = "Category Products";
 }
+
 
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -22,7 +22,7 @@
                                     <a>Categories</a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                   Categories List
+                                    Products List
                                 </li>
                             </ol>
                         </div>
@@ -34,49 +34,43 @@
             <!-- Description -->
             <section id="description" class="card">
                 <div class="card-header">
-                    <h4 class="card-title">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                           Add new Category
-                        </button>
-                    </h4>
+                    <h3 class="card-title">
+
+                        @Model.Name : Products List
+                    </h3>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
                         <table class="table table-striped" id="tbl">
                             <thead>
                                 <tr>
-                                    <th>Category Name</th>
-                                    <th>Number of Products</th>
+                                    <th>Product Name</th>
+                                    <th>Product Price</th>
                                     <th>Operations</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (!Model.Any())
+                                @if (!Model.Products.Any())
                                 {
                                     <tr>
                                         <td colspan="3">
-                                            <h2 class="text-danger text-center">There is no categories yet.</h2>
+                                            <h2 class="text-danger text-center">There is no Products yet.</h2>
                                         </td>
                                     </tr>
                                 }
-                                @foreach (var category in Model)
+                                @foreach (var product in Model.Products)
                                 {
                                     <tr>
-                                        <td>@category.Name</td>
-                                        <td>@category.Products.Count</td>
-                                       
-                                        <td>
-                                            <a class="btn btn-danger deleteForm" style="color: #FFF !important; top: unset !important"
-                                               asp-route-id="@category.Id"
-                                               asp-action="Delete" asp-controller="Categories">
-                                                <i style="color: #FFF !important; top: unset !important" class="fa fa-trash-o"></i>
-                                            </a>
-                                            <a class="btn btn-info" style="color: #FFF !important; top: unset !important"
-                                               asp-route-brandId="@category.Id"
-                                               asp-action="ListOverCategories" asp-controller="Products">
-                                                <i style="color: #FFF !important; top: unset !important" class="fa fa-address-card"></i>
-                                            </a>
-                                        </td>
+                                        <td>@product.Title</td>
+                                        <td>@product.Price</td>
+                                        <td></td>
+                                        @*<td>
+                                                <a class="btn btn-danger deleteForm" style="color: #FFF !important; top: unset !important"
+                                                   asp-route-id="@product.Id"
+                                                   asp-action="Delete" asp-controller="Brands">
+                                                    <i style="color: #FFF !important; top: unset !important" class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>*@
                                     </tr>
                                 }
 
@@ -104,7 +98,7 @@
     <script>
         $('#tbl').DataTable({
             //paging: false,
-           
+
         });
 
         $('.deleteForm').click(function (e) {
@@ -137,25 +131,5 @@
 
     </script>
 }
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form asp-action="AddCategory" asp-controller="Categories" method="post">
-                <div class="modal-body">
-                    <input type="text" required class="form-control" name="name"/>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Create Category</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+
+
