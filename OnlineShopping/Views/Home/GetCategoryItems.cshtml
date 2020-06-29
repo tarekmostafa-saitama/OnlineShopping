@@ -26,7 +26,7 @@ else
                         Category : <span>@item.Category.Name</span><br />
                         Brand : <span>@item.Brand.Name</span>
                     </p>
-                    <a href="/home/details/@item.Id" class="btn btn-primary m-auto btn-block" style="background-color:#FF324D;">Details</a>
+                    <a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id" class="btn btn-primary m-auto btn-block" style="background-color:#FF324D;">Details</a>
                 </div>
             </div>
         </div>
