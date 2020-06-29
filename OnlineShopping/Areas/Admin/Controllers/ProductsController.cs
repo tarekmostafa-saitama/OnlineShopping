@@ -94,5 +94,18 @@ namespace OnlineShopping.Areas.Admin.Controllers
             }
             return View(brand);
         }
+        [Route("Admin/Products/Delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var url = HttpContext.Request.Path;
+            var product = _unitOfWork.ProductRepository.Get(id,new string[0]);
+            if (product != null)
+            {
+                product.IsDeleted = true;
+                _unitOfWork.Complete();
+            }
+
+            return Redirect(url.ToString());
+        }
     }
 }

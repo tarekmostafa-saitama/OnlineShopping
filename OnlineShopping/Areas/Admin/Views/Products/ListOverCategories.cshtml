@@ -58,19 +58,19 @@
                                         </td>
                                     </tr>
                                 }
-                                @foreach (var product in Model.Products)
+                                @foreach (var product in Model.Products.Where(x => !x.IsDeleted))
                                 {
                                     <tr>
                                         <td>@product.Title</td>
                                         <td>@product.Price</td>
-                                        <td></td>
-                                        @*<td>
+                                       
+                                        <td>
                                                 <a class="btn btn-danger deleteForm" style="color: #FFF !important; top: unset !important"
                                                    asp-route-id="@product.Id"
-                                                   asp-action="Delete" asp-controller="Brands">
+                                                   asp-action="Delete" asp-controller="Products">
                                                     <i style="color: #FFF !important; top: unset !important" class="fa fa-trash-o"></i>
                                                 </a>
-                                            </td>*@
+                                            </td>
                                     </tr>
                                 }
 
