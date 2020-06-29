@@ -24,7 +24,7 @@ namespace OnlineShopping.Controllers
             {
                 brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
                 categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
-                products = unitOfWork.ProductRepository.GetAll(new string[] { "ProductImages", "Brand", "Category" }).ToList()
+                products = unitOfWork.ProductRepository.Find(x=>x.IsDeleted == false,new string[] { "ProductImages", "Brand", "Category" }).ToList()
             };
         }
         [Route("~/")]
@@ -40,7 +40,7 @@ namespace OnlineShopping.Controllers
             {
                 brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
                 categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
-                products = unitOfWork.ProductRepository.Find(i => i.CategoryId == id, new string[0] { }).ToList()
+                products = unitOfWork.ProductRepository.Find(i => i.CategoryId == id && i.IsDeleted == false, new string[0] { }).ToList()
             };
 
             return View(homeViewModel);
@@ -53,7 +53,7 @@ namespace OnlineShopping.Controllers
             {
                 brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
                 categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
-                products = unitOfWork.ProductRepository.Find(oh => oh.Title.Contains(ProductName) && oh.CategoryId == categories, new string[] { "ProductImages", "Brand", "Category" }).ToList()
+                products = unitOfWork.ProductRepository.Find(i => i.Title.Contains(ProductName) && i.CategoryId == categories && i.IsDeleted == false, new string[] { "ProductImages", "Brand", "Category" }).ToList()
             };
 
             return View("GetCategoryItems", homeViewModel);
