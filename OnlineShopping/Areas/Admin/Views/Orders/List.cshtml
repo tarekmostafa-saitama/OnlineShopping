@@ -1,0 +1,143 @@
+﻿@using System.Collections.Specialized
+@model IEnumerable<Order>
+@{
+    ViewData["Title"] = "Orders List";
+}
+
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-12 mb-2 mt-1">
+                <div class="row breadcrumbs-top">
+                    <div class="col-12">
+                        <h5 class="content-header-title float-left pr-1 mb-0">Where are you : </h5>
+                        <div class="breadcrumb-wrapper col-12">
+                            <ol class="breadcrumb p-0 mb-0">
+                                <li class="breadcrumb-item">
+                                    <a><i class="bx bx-home-alt"></i></a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a>Orders</a>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    Orders List
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <!-- Description -->
+            <section id="description" class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+
+                  
+                    </h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <table class="table table-striped" id="tbl">
+                            <thead>
+                                <tr>
+                                    <th>Order Date</th>
+                                    <th>Order Address</th>
+                                    <th>Order Shipping State</th>
+                                    <th>Customer Username</th>
+                                    <th>Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (!Model.Any())
+                                {
+                                    <tr>
+                                        <td colspan="5">
+                                            <h2 class="text-danger text-center">There is no orders yet.</h2>
+                                        </td>
+                                    </tr>
+                                }
+                                @foreach (var order in Model)
+                                {
+                                    <tr>
+                                        <td>@order.Date</td>
+                                        <td>@order.Address</td>
+                                        <td>@order.ShippingState</td>
+                                        <td>@order.Member.UserName</td>
+
+                                        <td>
+                                            @*<a class="btn btn-danger deleteForm" style="color: #FFF !important; top: unset !important"
+                                               asp-route-id="@brand.Id"
+                                               asp-action="Delete" asp-controller="Brands">
+                                                <i style="color: #FFF !important; top: unset !important" class="fa fa-trash-o"></i>
+                                            </a>
+
+                                            <a class="btn btn-info" style="color: #FFF !important; top: unset !important"
+                                               asp-route-brandId="@brand.Id"
+                                               asp-action="ListOverBrands" asp-controller="Products">
+                                                <i style="color: #FFF !important; top: unset !important" class="fa fa-address-card"></i>
+                                            </a>*@
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <!--/ Description -->
+
+
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+@section Scripts
+{
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+
+
+    <script src="~/lib/bootbox.js/bootbox.js"></script>
+
+    <script>
+        $('#tbl').DataTable({
+            //paging: false,
+
+        });
+
+        $('.deleteForm').click(function (e) {
+            let event = e;
+            e.preventDefault();
+            bootbox.confirm({
+                message: "Are you sure you want to delete ?",
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        if (e.target.href) {
+                            window.location.href = e.target.href;
+                        } else {
+                            window.location.href = e.target.parentElement.href;
+                        }
+                    }
+                }
+            });
+
+        });
+
+    </script>
+}
