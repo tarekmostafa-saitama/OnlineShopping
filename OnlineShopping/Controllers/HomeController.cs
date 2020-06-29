@@ -28,7 +28,7 @@ namespace OnlineShopping.Controllers
             };
         }
 
-        [Route("/Home/Index")]
+        [Route("/Home")]
         public IActionResult Index()
         {
             return View(homeViewModel);
