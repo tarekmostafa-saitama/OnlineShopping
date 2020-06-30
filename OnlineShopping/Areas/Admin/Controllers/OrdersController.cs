@@ -16,10 +16,31 @@ namespace OnlineShopping.Areas.Admin.Controllers
         {
             _unitOfWork = unitOfWork;
         }
+        [Route("Admin/Orders/List")]
         public IActionResult List()
         {
             var orders = _unitOfWork.OrderRepository.GetAll(new[] { "Member" }).ToList();
             return View(orders);
+        }
+        [Route("Admin/Orders/Delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var order = _unitOfWork.OrderRepository.Get(id, new string[0]);
+            var orderDetails = _unitOfWork.OrderProductDetailRepository.Find(x => x.OrderId == id, new string[0])
+                .ToList();
+            if (orderDetails.Any())
+            {
+                _unitOfWork.OrderProductDetailRepository.DeleteRange(orderDetails);
+                _unitOfWork.Complete();
+            }
+
+            if (order != null)
+            {
+                _unitOfWork.OrderRepository.Delete(order);
+                _unitOfWork.Complete();
+            }
+
+            return RedirectToAction(nameof(List));
         }
     }
 }
