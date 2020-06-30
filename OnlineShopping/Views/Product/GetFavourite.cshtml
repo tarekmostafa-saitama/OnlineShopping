@@ -3,7 +3,8 @@
     ViewData["Title"] = "GetFavouriteAsync";
     Layout = "~/Views/shared/_AccountLayout.cshtml";
 }
-<div class="container">
+
+<div class="container" id="products">
     <div class="row">
         @if (Model.Count() == 0)
         {
@@ -26,7 +27,11 @@
                                     <a asp-action="Details" asp-controller="Product" asp-route-id="@item.ProductId"><h5 class="card-title">@item.Product.Title</h5></a>
                                     <p class="card-text">@item.Product.Description</p>
                                     <p class="card-text">
-                                        <a class="btn btn-danger btn-block m-auto text-bold-500" style="color:white">Remove</a>
+                                        <form asp-action="Delete" asp-route-id="@item.Id" asp-controller="Product" data-ajax="true">
+                                            <button type="submit" class="btn btn-sm btn-danger d-none d-md-inline-block" id="deleteRecord" onclick="xxx()">
+                                                Delete
+                                            </button>
+                                        </form>
                                     </p>
                                 </div>
                             </div>
@@ -40,6 +45,74 @@
 </div>
 
 @section Category{
-    @Html.Partial("_Category",ViewBag.e as HomeViewModel)
+    @Html.Partial("_Category", ViewBag.e as HomeViewModel)
+
+
+    <script>
+        //$(document).ready(function () {
+        //    $("#deleteRecord").click(function (e) {
+
+        //        //        $.ajax({
+        //        //            url: form.action,
+        //        //            type: 'Delete',
+        //        //        }).done(function () {alert("Deleted")});
+
+        //        //}).error(function () {
+        //        //    alert("Failed")
+
+        //    });
+        //});
+        function xxx() {
+
+                 
+                $.ajax({
+                    type: "Get",
+                    url: '@Url.Action("Delete")',
+                    dataType: "json",
+                    success: function () {
+                       
+                        @if (Model.Count() == 0)
+        {
+            <br />
+            <h1 class="m-auto" style="color:red">No Favourite Items</h1>
+            <br />
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row no-gutters">
+                            <div class="col-md-4 d-flex align-items-center">
+                                <img src="@item.Product.ProductImages.ToList()[0].Path" class="card-img">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <a asp-action="Details" asp-controller="Product" asp-route-id="@item.ProductId"><h5 class="card-title">@item.Product.Title</h5></a>
+                                    <p class="card-text">@item.Product.Description</p>
+                                    <p class="card-text">
+                                        <form asp-action="Delete" asp-route-id="@item.Id" asp-controller="Product" data-ajax="true">
+                                            <button type="submit" class="btn btn-sm btn-danger d-none d-md-inline-block" id="deleteRecord" onclick="xxx()">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+                    },
+                    error: function () {
+
+                    }
+                });
+                  
+        }
+    </script>
 
 }

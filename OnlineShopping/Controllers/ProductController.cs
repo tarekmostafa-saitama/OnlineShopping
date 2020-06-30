@@ -86,6 +86,16 @@ namespace OnlineShopping.Controllers
             return View(favprds);
         }
 
+        [HttpPost]
+        [Route("/Product/Delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var obj = unitOfWork.MemberProductFavouriteRepository.Get(id,new string[] { });
+            unitOfWork.MemberProductFavouriteRepository.Delete(obj);
+            unitOfWork.Complete();
+            return RedirectToAction("GetFavourite","Product");
+        }
+
 
     }
 }
