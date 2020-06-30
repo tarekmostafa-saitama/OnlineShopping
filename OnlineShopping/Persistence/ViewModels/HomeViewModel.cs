@@ -11,5 +11,7 @@ namespace OnlineShopping.Persistence.ViewModels
         public ICollection<Product> products { get; set; }
         public ICollection<Brand> brands { get; set; }
         public ICollection<Category> categories { get; set; }
+        public ICollection<Comment> comments { get; set; }
+
     }
 }

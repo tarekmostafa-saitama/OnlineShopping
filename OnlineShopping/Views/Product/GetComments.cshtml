@@ -1,0 +1,16 @@
+﻿
+@model  HomeViewModel
+
+
+@foreach (var item in Model.comments)
+{
+    <div class="m-2 p-2" style="border-bottom:solid 1px">
+
+        <p style="color:forestgreen" >@item.Date</p>
+        <p style="color:black;font-weight: 500;">@item.Content</p>
+        by: <p style="display:inline">@item.Member.UserName</p>
+
+    </div>
+  
+
+}
