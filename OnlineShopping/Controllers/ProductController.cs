@@ -63,7 +63,7 @@ namespace OnlineShopping.Controllers
                 unitOfWork.Complete();
             }
             
-            return RedirectToAction("index", "Home");
+            return RedirectToAction("Details", new { id = id });
         }
 
         [Authorize(Roles = "Member")]
