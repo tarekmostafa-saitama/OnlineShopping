@@ -31,7 +31,8 @@ namespace OnlineShopping.Controllers
         public IActionResult Index()
         {
             var ran = new Random();
-            ViewData["dayDeals"] = unitOfWork.ProductRepository.GetAll(new string[0] { }).OrderBy(i => ran.Next()).Take(6).ToList();
+            ViewData["dayDeals"] = unitOfWork.ProductRepository.GetAll(new string[1] { "ProductImages" }).OrderBy(i => ran.Next()).Take(6).ToList();
+            int x = 10;
             return View(homeViewModel);
         }
         [Route("/Home/GetCategoryItems/{id}")]
