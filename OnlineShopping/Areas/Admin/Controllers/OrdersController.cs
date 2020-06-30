@@ -56,5 +56,16 @@ namespace OnlineShopping.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(List));
         }
+        [Route("Admin/Orders/GetOrderDetails/{orderId}")]
+        public IActionResult GetOrderDetails(int orderId)
+        {
+            var orderDetails = _unitOfWork.OrderProductDetailRepository.Find(x=>x.OrderId == orderId, new []{"Product"});
+            if (orderDetails != null)
+            {
+                return PartialView("_OrderDetails",orderDetails);
+            }
+
+            return RedirectToAction(nameof(List));
+        }
     }
 }
