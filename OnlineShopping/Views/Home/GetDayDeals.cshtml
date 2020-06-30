@@ -26,15 +26,15 @@
                             <div class="product">
                                 <div class="product_img">
                                     <a href="shop-product-detail.html">
-                                        <img style="height:200px" src='@item.ProductImages.ToList().FirstOrDefault().Path' alt="product_img1">
+                                        <img style="height:200px" src='@item.ProductImages.ToList()[0].Path' alt="product_img1">
                                     </a>
                                    
                                 </div>
                                 <div class="product_info" style="height:100px">
                                     <h6 class="product_title"><a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">@item.Title</a></h6>
                                     <div class="product_price">
-                                        <span class="price">$@item.Price</span>
-                                        <del>$@(item.Price * 1.4)</del>
+                                        <span class="price">@item.Price $</span>
+                                        <del>@(Math.Round(item.Price * 1.4)) $</del>
                                         <div class="on_sale">
                                             <span>40% Off</span>
                                         </div>
