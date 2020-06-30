@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShopping.Core;
+using OnlineShopping.Core.Enums;
 
 namespace OnlineShopping.Areas.Admin.Controllers
 {
@@ -37,6 +38,19 @@ namespace OnlineShopping.Areas.Admin.Controllers
             if (order != null)
             {
                 _unitOfWork.OrderRepository.Delete(order);
+                _unitOfWork.Complete();
+            }
+
+            return RedirectToAction(nameof(List));
+        }
+        [HttpPost]
+        [Route("Admin/Orders/UpdateShippingState")]
+        public IActionResult UpdateShippingState(int orderId,ShippingState shippingState)
+        {
+            var order = _unitOfWork.OrderRepository.Get(orderId, new string[0]);
+            if (order != null)
+            {
+                order.ShippingState = shippingState;
                 _unitOfWork.Complete();
             }
 
