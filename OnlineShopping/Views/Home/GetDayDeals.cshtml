@@ -1,5 +1,7 @@
 ﻿@model HomeViewModel
-
+@{ 
+    Model.products = ViewBag.dayDeals;
+}
 
 <div class="section small_pt small_pb">
     <div class="container">
@@ -24,22 +26,15 @@
                             <div class="product">
                                 <div class="product_img">
                                     <a href="shop-product-detail.html">
-                                        <img src='@item.ProductImages.ToList().FirstOrDefault().Path' alt="product_img1">
+                                        <img style="height:200px" src='@item.ProductImages.ToList().FirstOrDefault().Path' alt="product_img1">
                                     </a>
-                                    <div class="product_action_box">
-                                        <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To Cart</a></li>
-                                            <li><a href="shop-compare.html" class="popup-ajax"><i class="icon-shuffle"></i></a></li>
-                                            <li><a href="shop-quick-view.html" class="popup-ajax"><i class="icon-magnifier-add"></i></a></li>
-                                            <li><a href="#"><i class="icon-heart"></i></a></li>
-                                        </ul>
-                                    </div>
+                                   
                                 </div>
-                                <div class="product_info">
-                                    <h6 class="product_title"><a href="shop-product-detail.html">@item.Title</a></h6>
+                                <div class="product_info" style="height:100px">
+                                    <h6 class="product_title"><a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">@item.Title</a></h6>
                                     <div class="product_price">
                                         <span class="price">$@item.Price</span>
-                                        <del>$(@item.Price * 1.4)</del>
+                                        <del>$@(item.Price * 1.4)</del>
                                         <div class="on_sale">
                                             <span>40% Off</span>
                                         </div>
@@ -48,14 +43,9 @@
                                     <div class="pr_desc">
                                         <p>@item.Description</p>
                                     </div>
-                                    <div class="pr_switch_wrap">
-                                        <div class="product_color_switch">
-                                            <span class="active" data-color="#87554B"></span>
-                                            <span data-color="#333333"></span>
-                                            <span data-color="#DA323F"></span>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
+                                <a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id" class="btn m-auto btn-block" style="background-color:#FF324D;">Details</a>
                             </div>
                         </div>
                     }

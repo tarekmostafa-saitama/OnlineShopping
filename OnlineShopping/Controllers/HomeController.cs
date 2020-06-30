@@ -31,6 +31,8 @@ namespace OnlineShopping.Controllers
         [Route("/Home")]
         public IActionResult Index()
         {
+            var ran = new Random();
+            ViewData["dayDeals"] = unitOfWork.ProductRepository.GetAll(new string[0] { }).OrderBy(i => ran.Next()).Take(6).ToList();
             return View(homeViewModel);
         }
         [Route("/Home/GetCategoryItems/{id}")]
@@ -58,18 +60,6 @@ namespace OnlineShopping.Controllers
 
             return View("GetCategoryItems", homeViewModel);
 
-        }
-
-        [HttpGet]
-        public IActionResult GetDayDeals()
-        {
-            homeViewModel = new HomeViewModel()
-            {
-                brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
-                categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
-                products = unitOfWork.ProductRepository.GetAll(new string[0] { }).Take(8).ToList()
-            };
-            return View(homeViewModel);
         }
 
     }
