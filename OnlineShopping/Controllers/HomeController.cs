@@ -16,7 +16,6 @@ namespace OnlineShopping.Controllers
 
         HomeViewModel homeViewModel;
 
-
         public HomeController(IUnitOfWork _unitOfWork)
         {
             unitOfWork = _unitOfWork;
@@ -31,6 +30,8 @@ namespace OnlineShopping.Controllers
         [Route("/Home")]
         public IActionResult Index()
         {
+            var ran = new Random();
+            ViewData["dayDeals"] = unitOfWork.ProductRepository.GetAll(new string[0] { }).OrderBy(i => ran.Next()).Take(6).ToList();
             return View(homeViewModel);
         }
         [Route("/Home/GetCategoryItems/{id}")]
@@ -48,19 +49,13 @@ namespace OnlineShopping.Controllers
         [Route("/Home/Search")]
         public IActionResult Search(String ProductName, int categories)
         {
-
             homeViewModel = new HomeViewModel()
             {
                 brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
                 categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
                 products = unitOfWork.ProductRepository.Find(i => i.Title.Contains(ProductName) && i.CategoryId == categories && i.IsDeleted == false, new string[] { "ProductImages", "Brand", "Category" }).ToList()
             };
-
             return View("GetCategoryItems", homeViewModel);
-
         }
-        
-
-
     }
 }

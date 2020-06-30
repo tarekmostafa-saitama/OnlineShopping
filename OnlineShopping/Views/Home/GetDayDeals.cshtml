@@ -1,0 +1,55 @@
+﻿@model HomeViewModel
+@{ 
+    Model.products = ViewBag.dayDeals;
+}
+
+<div class="section small_pt small_pb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading_tab_header">
+                    <div class="heading_s2">
+                        <h2>Deal Of The Days</h2>
+                    </div>
+                    <div class="deal_timer">
+                        <div class="countdown_time countdown_style1" data-time="2020/08/28 13:22:15"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product_slider carousel_slider owl-carousel owl-theme nav_style1" data-loop="true" data-dots="false" data-nav="true" data-margin="20" data-responsive='{"0":{"items": "1"}, "481":{"items": "2"}, "768":{"items": "3"}, "1199":{"items": "4"}}'>
+                    @foreach (var item in Model.products)
+                    {
+                        <div class="item">
+                            <div class="product">
+                                <div class="product_img">
+                                    <a href="shop-product-detail.html">
+                                        <img style="height:200px" src='@item.ProductImages.ToList().FirstOrDefault().Path' alt="product_img1">
+                                    </a>
+                                   
+                                </div>
+                                <div class="product_info" style="height:100px">
+                                    <h6 class="product_title"><a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">@item.Title</a></h6>
+                                    <div class="product_price">
+                                        <span class="price">$@item.Price</span>
+                                        <del>$@(item.Price * 1.4)</del>
+                                        <div class="on_sale">
+                                            <span>40% Off</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="pr_desc">
+                                        <p>@item.Description</p>
+                                    </div>
+                                    
+                                </div>                           
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
