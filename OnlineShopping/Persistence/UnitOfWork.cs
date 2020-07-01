@@ -20,6 +20,7 @@ namespace OnlineShopping.Persistence
         public IOrderRepository OrderRepository { get; set; }
         public IProductImageRepository ProductImageRepository { get; set; }
         public IProductRepository ProductRepository { get; set; }
+        public ITemporaryItemsRepository TemporaryItemsRepository { get; set; }
 
         public UnitOfWork(ApplicationDbContext dbContext)
         {
@@ -32,6 +33,7 @@ namespace OnlineShopping.Persistence
             OrderRepository = new OrderRepository(_dbContext);
             ProductImageRepository = new ProductImageRepository(_dbContext);
             ProductRepository = new ProductRepository(_dbContext);
+            TemporaryItemsRepository = new TemporaryItemsRepository(_dbContext);
         }
         public void Complete()
         {

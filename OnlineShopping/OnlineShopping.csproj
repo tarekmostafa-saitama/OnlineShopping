@@ -13,7 +13,6 @@
     <Folder Include="Core\DbEntitiesConfigurations\" />
     <Folder Include="Models\" />
     <Folder Include="Persistence\ViewModels\" />
-    <Folder Include="Views\Shared\" />
     <Folder Include="wwwroot\Core\" />
     <Folder Include="wwwroot\lib\" />
     <Folder Include="wwwroot\Uploads\" />

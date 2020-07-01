@@ -17,6 +17,7 @@ namespace OnlineShopping.Persistence.Context
         public DbSet<OrderProductDetail> OrderProductDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<TemporaryItems> TemporaryItems { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

@@ -16,7 +16,7 @@ namespace OnlineShopping.Core
         IOrderRepository OrderRepository { get; set; }
         IProductImageRepository ProductImageRepository { get; set; }
         IProductRepository ProductRepository { get; set; }
-
+        ITemporaryItemsRepository TemporaryItemsRepository { get; set; }
         void Complete();
     }
 }

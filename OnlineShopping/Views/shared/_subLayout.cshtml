@@ -50,7 +50,7 @@
         <div class="middle-header dark_skin">
             <div class="container">
                 <div class="nav_block">
-                    <a class="navbar-brand" asp-action="index" asp-controller="Home">
+                    <a class="navbar-brand" asp-action="index" asp-controller="home">
                         <img class="logo_light" src="~/lib/images/logo_light.png" alt="logo">
                         <img class="logo_dark" src="~/lib/images/logo_dark.png" alt="logo">
                     </a>
@@ -81,7 +81,7 @@
                             </button>
                             <div class="collapse navbar-collapse mobile_side_menu" id="navbarSidetoggle">
                                 <ul class="navbar-nav">
-                                    <li><a class="nav-link nav_item" asp-action="Index" asp-controller="Home">Home</a></li>
+                                    <li><a class="nav-link nav_item" asp-action="Index" asp-controller="home">Home</a></li>
                                     @RenderSection("Category", false)
                                 </ul>
                             </div>
@@ -120,6 +120,7 @@
                                     <li><a asp-action="Logout" asp-controller="Account" class="btn btn-danger nav-link nav_item ml-2">Logout</a></li>
 
                                 }
+
                             </ul>
                             <div class="pr_search_icon">
                                 <a href="javascript:void(0);" class="nav-link pr_search_trigger"><i class="linearicons-magnifier"></i></a>

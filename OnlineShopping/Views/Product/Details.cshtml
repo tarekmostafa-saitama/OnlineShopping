@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "Details";
-    Layout = "~/Views/shared/_AccountLayout.cshtml";
+    Layout = "~/Views/shared/_subLayout.cshtml";
     var myProdindex = Model.products.Count() - 1;
     //var CommentData = ViewBag.data;
 }
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                             <div class="cart_btn">
-                                <button class="btn btn-fill-out btn-addtocart" type="button"><i class="icon-basket-loaded"></i> Add to cart</button>
+                                <a asp-action="addTocart" asp-controller="Cart" asp-route-id="@Model.products.ToList()[myProdindex].Id" class="btn btn-fill-out btn-addtocart" ><i class="icon-basket-loaded"></i> Add to cart</a>
                                  <a class="add_wishlist"  asp-action="AddFavourite" asp-controller="Product" asp-route-id="@Model.products.ToList()[myProdindex].Id"><i class="icon-heart"></i></a>
                             </div>
                         </div>

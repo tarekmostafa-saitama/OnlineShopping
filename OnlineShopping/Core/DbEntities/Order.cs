@@ -14,9 +14,9 @@ namespace OnlineShopping.Core.DbEntities
         public DateTime Date { get; set; }
         public string Address { get; set; }
         public ShippingState ShippingState { get; set; }
-
-        public string MemberId { get; set; }
+    
         [ForeignKey("MemberId")]
+        public string MemberId { get; set; }
         public Member Member { get; set; }
 
         public ICollection<OrderProductDetail> OrderProductDetails { get; set; }
