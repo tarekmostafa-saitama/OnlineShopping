@@ -88,6 +88,7 @@ namespace OnlineShopping.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Member")]
         [Route("/Product/Delete/{id}")]
         public IActionResult Delete(int id)
         {
@@ -97,7 +98,7 @@ namespace OnlineShopping.Controllers
             return RedirectToAction("GetFavourite","Product");
         }
 
-
+        [Authorize(Roles = "Member")]
         [Route("/Product/AddComment/{id}")]
         public async Task<IActionResult> AddCommentAsync(string Content, int id)
         {
