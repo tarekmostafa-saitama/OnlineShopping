@@ -100,6 +100,7 @@ namespace OnlineShopping.Controllers
 
         [Authorize(Roles = "Member")]
         [Route("/Product/AddComment/{id}")]
+        [HttpPost]
         public async Task<IActionResult> AddCommentAsync(string Content, int id)
         {
             Member myUser = await userManager.GetUserAsync(User);

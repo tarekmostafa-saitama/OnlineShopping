@@ -109,6 +109,17 @@
                                         </div>
                                     </div>
                                 </li>
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                                    <li><a asp-action="Login" asp-controller="Account" class="btn btn-danger nav-link nav_item ml-2">Login</a></li>
+                                    <li><a asp-action="Register" asp-controller="Account" class="btn btn-danger nav-link nav_item ml-2">Register</a></li>
+
+                                }
+                                else
+                                {
+                                    <li><a asp-action="Logout" asp-controller="Account" class="btn btn-danger nav-link nav_item ml-2">Logout</a></li>
+
+                                }
                             </ul>
                             <div class="pr_search_icon">
                                 <a href="javascript:void(0);" class="nav-link pr_search_trigger"><i class="linearicons-magnifier"></i></a>

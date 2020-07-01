@@ -78,7 +78,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-3">
                         <div class="categories_wrap">
                             <button type="button" data-toggle="collapse" data-target="#navCatContent" aria-expanded="false" class="text-center categories_btn">
-                              <span>All Categories </span>
+                                <span>All Categories </span>
                             </button>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                             </div>
                             <ul class="navbar-nav attr-nav align-items-center">
                                 <li><a href="#" class="nav-link"><i class="linearicons-user"></i></a></li>
-                                <li><a  class="nav-link" asp-action="GetFavourite" asp-controller="Product"><i class="linearicons-heart"></i><span class="wishlist_count">0</span></a></li>
+                                <li><a class="nav-link" asp-action="GetFavourite" asp-controller="Product"><i class="linearicons-heart"></i><span class="wishlist_count">0</span></a></li>
                                 <li class="dropdown cart_dropdown">
                                     <a class="nav-link cart_trigger" href="#" data-toggle="dropdown"><i class="linearicons-cart"></i><span class="cart_count">2</span></a>
                                     <div class="cart_box dropdown-menu dropdown-menu-right">
@@ -158,11 +158,11 @@
                     </div>
                 </div>
                 <div class="row">
-                            @RenderBody()
-                    </div>
+                    @RenderBody()
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <!-- END SECTION SHOP -->
     <!-- START SECTION BANNER -->
@@ -191,8 +191,7 @@
         </div>
     </div>
     <!-- END SECTION BANNER -->
-
-    @RenderSection("DayDeals",false)   
+    @*@RenderSection("DayDeals",false)   *@
 
 
 
@@ -239,7 +238,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="client_logo carousel_slider owl-carousel owl-theme nav_style3" data-dots="false" data-nav="true" data-margin="30" data-loop="true" data-autoplay="true" data-responsive='{"0":{"items": "2"}, "480":{"items": "3"}, "767":{"items": "4"}, "991":{"items": "5"}}'>
-                        @RenderSection("Brand",required:false)
+                        @RenderSection("Brand", required: false)
                     </div>
                 </div>
             </div>
@@ -411,7 +410,7 @@
                 </div>
             </div>
         </div>
-        
+
     </footer>
     <!-- END FOOTER -->
 
