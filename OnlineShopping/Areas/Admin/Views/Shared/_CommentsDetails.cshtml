@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Comment>
+
+<div id="content">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Content</th>
+            <th scope="col">Username</th>
+            <th scope="col">Operations</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var i in Model)
+        {
+            <tr>
+                <th>@i.Content</th>
+                <td>@i.Member.UserName</td>
+                <td></td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="3" class="text-danger text-center">
+                    <h2>There is no comments yet.</h2>
+                </td>
+            </tr>
+        }
+
+        </tbody>
+    </table>
+        
+        
+
+</div>

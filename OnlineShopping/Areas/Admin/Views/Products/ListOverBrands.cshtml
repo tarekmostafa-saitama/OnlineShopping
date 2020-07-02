@@ -58,7 +58,7 @@
                                         </td>
                                     </tr>
                                 }
-                                @foreach (var product in Model.Products.Where(x=>!x.IsDeleted))
+                                @foreach (var product in Model.Products.Where(x => !x.IsDeleted))
                                 {
                                     <tr>
                                         <td>@product.Title</td>
@@ -69,9 +69,13 @@
                                                asp-action="Delete" asp-controller="Products">
                                                 <i style="color: #FFF !important; top: unset !important" class="fa fa-trash-o"></i>
                                             </a>
+                                            <a class="btn btn-success" onclick="GetProductComments(@product.Id)" style="color: #FFF !important; top: unset !important"
+                                               href="#">
+                                                <i style="color: #FFF !important; top: unset !important" class="fa fa-address-card"></i>
+                                            </a>
                                         </td>
                                     </tr>
-                                }
+                                }CommentsDetails
 
                             </tbody>
                         </table>
@@ -100,35 +104,70 @@
 
         });
 
-        //$('.deleteForm').click(function (e) {
-        //    let event = e;
-        //    e.preventDefault();
-        //    bootbox.confirm({
-        //        message: "Are you sure you want to delete ?",
-        //        buttons: {
-        //            confirm: {
-        //                label: 'Yes',
-        //                className: 'btn-success'
-        //            },
-        //            cancel: {
-        //                label: 'No',
-        //                className: 'btn-danger'
-        //            }
-        //        },
-        //        callback: function (result) {
-        //            if (result) {
-        //                if (e.target.href) {
-        //                    window.location.href = e.target.href;
-        //                } else {
-        //                    window.location.href = e.target.parentElement.href;
-        //                }
-        //            }
-        //        }
-        //    });
+        $('.deleteForm').click(function (e) {
+            let event = e;
+            e.preventDefault();
+            bootbox.confirm({
+                message: "Are you sure you want to delete ?",
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        if (e.target.href) {
+                            window.location.href = e.target.href;
+                        } else {
+                            window.location.href = e.target.parentElement.href;
+                        }
+                    }
+                }
+            });
 
-        //});
+        });
+
+        function GetProductComments(productId) {
+            fetch('/Admin/Comments/List/' + productId)
+                .then(response => {
+                    return response.text();
+                }).then(response => {
+                    // Initialize the DOM parser
+                    var parser = new DOMParser();
+                    // Parse the text
+                    var doc = parser.parseFromString(response, "text/html");
+                    console.log(doc);
+                    document.querySelector('#CommentsDetailsDiv').innerHTML = doc.querySelector('#content').innerHTML;
+                    $('#CommentsDetails').modal('show');
+                });
+        }
 
     </script>
 }
 
 
+<!-- Modal -->
+<div class="modal fade" id="CommentsDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Comments Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="CommentsDetailsDiv"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
