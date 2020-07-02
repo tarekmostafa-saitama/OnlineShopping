@@ -34,19 +34,47 @@ namespace OnlineShopping.Controllers
         public async Task<IActionResult> addTocartAsync(int id)
         {
             Member myUser = await userManager.GetUserAsync(User);
-            TemporaryItems temp = new TemporaryItems()
+            var chkAdd = unitOfWork.TemporaryItemsRepository.Find(w => w.ProductId == id && w.MemberId == myUser.Id, new string[] { });
+            if(chkAdd.Count() == 0)
             {
-                ProductId = id,
-                MemberId = myUser.Id
-            };
-            unitOfWork.TemporaryItemsRepository.Add(temp);
-            unitOfWork.Complete();
+                TemporaryItems temp = new TemporaryItems()
+                {
+                    ProductId = id,
+                    MemberId = myUser.Id
+                };
+                unitOfWork.TemporaryItemsRepository.Add(temp);
+                unitOfWork.Complete();
+            }
+           
             return RedirectToAction("Details" , "product" , new { id = id});
         }
 
+        [Authorize(Roles = "Member")]
+        [Route("/Cart/DispalyCart")]
+        public async Task<IActionResult> DisplayCart()
+        {
+            Member myUser = await userManager.GetUserAsync(User);
+            var productIDs = unitOfWork.TemporaryItemsRepository.Find(item => item.MemberId == myUser.Id,new string[] { }).ToList();
+            List<Product> products = new List<Product>();
+            foreach(var item in productIDs)
+            {
+                products.AddRange(unitOfWork.ProductRepository.Find(i => i.Id == item.ProductId, new string[] { "ProductImages", "OrderProductDetails" }).Distinct());
+            }
+            return View(products);
+        }
 
+        [Route("/Cart/Delete/{id}")]
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            Member myUser = await userManager.GetUserAsync(User);
+            var product = unitOfWork.TemporaryItemsRepository.Find(item => item.ProductId == id && myUser.Id == item.MemberId, new string[] { }).ToList();
+            unitOfWork.TemporaryItemsRepository.DeleteRange(product);
+            unitOfWork.Complete();
+            return RedirectToAction("DisplayCart","Cart");
+        }
 
     }
 
-    
+
 }

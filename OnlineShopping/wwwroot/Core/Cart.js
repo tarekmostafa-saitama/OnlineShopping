@@ -1,0 +1,2 @@
+﻿let plusbtngroup = document.querySelectorAll('.plus');let prodqtygroup = document.querySelectorAll('.qty');//plusfor (let i = 0; i < plusbtngroup.length; i++) {    plusbtngroup[i].addEventListener('click', () => {        prodqtygroup.item(i).value;    });}
+// minuslet minusBtnGroup = document.querySelectorAll('.minus');for (let i = 0; i < minusBtnGroup.length; i++) {    minusBtnGroup[i].addEventListener('click', () => {        if (prodQtyGroup.item(i).value != 0) {            prodQtyGroup.item(i).value --;        }    });}
