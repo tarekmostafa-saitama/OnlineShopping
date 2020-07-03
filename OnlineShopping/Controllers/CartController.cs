@@ -60,7 +60,16 @@ namespace OnlineShopping.Controllers
             {
                 products.AddRange(unitOfWork.ProductRepository.Find(i => i.Id == item.ProductId, new string[] { "ProductImages", "OrderProductDetails" }).Distinct());
             }
-            return View(products);
+            homeViewModel = new HomeViewModel()
+            {
+                brands = null,
+                categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
+                comments = null,
+                products = products
+            };
+            ViewData["Order"] = new Order();
+            ViewData["TempProd"] = unitOfWork.TemporaryItemsRepository.Find(ww => ww.MemberId == myUser.Id , new string[] { }).ToList();
+            return View(homeViewModel);
         }
 
         [Route("/Cart/Delete/{id}")]
@@ -72,6 +81,26 @@ namespace OnlineShopping.Controllers
             unitOfWork.TemporaryItemsRepository.DeleteRange(product);
             unitOfWork.Complete();
             return RedirectToAction("DisplayCart","Cart");
+        }
+        [Authorize(Roles = "Member")]
+        [Route("/Cart/submitOrder")]
+        [HttpPost]
+        public async Task<IActionResult> submitOrder(Order order)
+        {
+            Member myUser = await userManager.GetUserAsync(User);
+            if (ModelState.IsValid)
+            {
+                order.Date = DateTime.Now;
+                order.MemberId = myUser.Id;
+            }
+            return RedirectToAction("DisplayCart", "Cart");
+        }
+
+        [HttpPost]
+        [Route("/Cart/updateQuantity")]
+        public IActionResult updateQuantity(IEnumerable<TemporaryItems> tempItems)
+        {
+            return View();
         }
 
     }

@@ -1,9 +1,11 @@
-﻿@model IEnumerable<OnlineShopping.Core.DbEntities.Product>
+﻿@model HomeViewModel
 
 @{
     ViewData["Title"] = "DisplayCart";
     Layout = "~/Views/shared/_subLayout.cshtml";
-
+    var prdCount = ViewBag.prdCount;
+    var order = ViewBag.Order as OnlineShopping.Core.DbEntities.Order;
+    var TempOrders = ViewBag.TempProd as List< OnlineShopping.Core.DbEntities.TemporaryItems>;
 }
 
 
@@ -49,39 +51,39 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td class="product-thumbnail"><a href="#"><img src="@item.ProductImages.ToList()[0].Path" alt="product2"></a></td>
-                                        <td class="product-name" data-title="Product"><a href="#">@item.Title</a></td>
-                                        <td class="price" data-title="Price">@item.Price$</td>
-                                        <td class="product-quantity" data-title="Quantity">
-                                            <div class="quantity">
-                                                <input type="button" value="-" class="minus">
-                                                <input type="text" min="1" name="quantity" value="1" title="Qty" class="qty" size="4">
-                                                <input type="button" value="+" class="plus">
-                                            </div>
-                                        </td>
-                                        <td data-title="Total"><span class="product-subtotal">@item.Price</span>$</td>
-                                        <td class="product-remove" data-title="Remove">
-                                            <form method="post">
-                                                <button asp-action="Delete" asp-controller="Cart" asp-route-id="@item.Id" type="submit" class="btn btn-border-fill"><i class="ti-close"></i></button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                            @*<tfoot>
+                                <form method="post">
+                                    @foreach (var item in Model.products)
+                                    {
+
+                                        <tr>
+                                            <td class="product-thumbnail"><a href="#"><img src="@item.ProductImages.ToList()[0].Path" alt="product2"></a></td>
+                                            <td class="product-name" data-title="Product"><a href="#">@item.Title</a></td>
+                                            <td class="price" data-title="Price">@item.Price$</td>
+                                            <td class="product-quantity" data-title="Quantity">
+                                                <div class="quantity">
+                                                    <input type="button" value="-" class="minus">
+                                                    <input type="text" min="1" name="Quantity" value="@TempOrders.Where(w => w.ProductId == item.Id).FirstOrDefault().Quantity" title="Qty" class="qty" size="4">
+                                                    <input type="button" value="+" class="plus">
+                                                </div>
+                                            </td>
+                                            <td data-title="Total"><span class="product-subtotal">@( item.Price * TempOrders.Where(w => w.ProductId == item.Id).FirstOrDefault().Quantity )</span>$</td>
+                                            <td class="product-remove" data-title="Remove">
+                                                <a asp-action="Delete" asp-controller="Cart" asp-route-id="@item.Id" class="btn btn-border-fill"><i class="ti-close"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
                                     <tr>
                                         <td colspan="6" class="px-0">
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-lg-8 col-md-6 text-left text-md-right">
-                                                    <button class="btn btn-line-fill btn-sm" type="submit">Update Cart</button>
+                                                    <button asp-action="updateQuantity" asp-controller="Cart" class="btn btn-line-fill btn-sm" type="submit">Update Cart</button>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-                                </tfoot>*@
+                                </form>
+
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -94,48 +96,51 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="heading_s1 mb-3">
                         <h6>Calculate Shipping</h6>
                     </div>
-                    <form class="field_form shipping_calculator">
-                        <div class="form-row">
-                            <div class="form-group col-lg-6">
-                                <input required="required" placeholder="Address" class="form-control" name="name" type="text">
+                    <form class="field_form shipping_calculator" method="post">
+                        <div class="border p-3 p-md-4">
+                            <div class="heading_s1 mb-3">
+                                <h6>Cart Totals</h6>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        @*<tr>
+                                        <td class="cart_total_label">Cart Subtotal</td>
+                                        <td class="cart_sub_total_amount">$349.00</td>
+                                    </tr>*@
+                                        <tr>
+                                            <td class="cart_total_label">Shipping</td>
+                                            <td class="cart_total_shipping">Free Shipping</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_total_label">Total</td>
+                                            <td class="cart_total_amount"></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="form-group col-md-12">
+                                <input asp-for="@order.Address" placeholder="Address" class="form-control w-50  m-auto">
+                                <span asp-validation-for="@order.Address" class="text-danger w-50 m-auto "></span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-lg-12">
-                                <button class="btn btn-fill-line" type="submit">Update Totals</button>
+                            <div class="form-group col-md-12">
+                                <input asp-for="@order.Telephone" placeholder="Mobile" class="form-control w-50 m-auto ">
+                                <span asp-validation-for="@order.Telephone" class="text-danger w-50 m-auto"></span>
                             </div>
+                        </div>
+                        <div class="form-row">
+                            <button class="btn btn-fill-line w-25 m-auto" type="submit" asp-action="submitOrder" asp-controller="Cart">Update Totals</button>
                         </div>
                     </form>
-                </div>
-                <div class="col-md-6">
-                    <div class="border p-3 p-md-4">
-                        <div class="heading_s1 mb-3">
-                            <h6>Cart Totals</h6>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tbody>
-                                    @*<tr>
-                                            <td class="cart_total_label">Cart Subtotal</td>
-                                            <td class="cart_sub_total_amount">$349.00</td>
-                                        </tr>*@
-                                    <tr>
-                                        <td class="cart_total_label">Shipping</td>
-                                        <td class="cart_total_shipping">Free Shipping</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cart_total_label">Total</td>
-                                        <td class="cart_total_amount"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <a href="#" class="btn btn-fill-out">Proceed To CheckOut</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -143,10 +148,10 @@
     <!-- END SECTION SHOP -->
 
 
-    @*@section Search{
+    @section Search{
         @Html.Partial("_Search")
 
     }
     @section Category{
         @Html.Partial("_Category")
-    }*@
+    }

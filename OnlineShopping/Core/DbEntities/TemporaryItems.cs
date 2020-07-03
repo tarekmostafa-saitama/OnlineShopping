@@ -14,7 +14,7 @@ namespace OnlineShopping.Core.DbEntities
         public string MemberId { get; set; }
         [ForeignKey("ProductId")]
         public int ProductId { get; set; }
-
+        public int Quantity { get; set; } = 1;
         public Member Member { get; set; }
         public Product Product { get; set; }
     }

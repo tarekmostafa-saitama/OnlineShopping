@@ -306,6 +306,7 @@ namespace OnlineShopping.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
@@ -316,6 +317,10 @@ namespace OnlineShopping.Migrations
 
                     b.Property<int>("ShippingState")
                         .HasColumnType("int");
+
+                    b.Property<string>("Telephone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -417,6 +422,9 @@ namespace OnlineShopping.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("id");
