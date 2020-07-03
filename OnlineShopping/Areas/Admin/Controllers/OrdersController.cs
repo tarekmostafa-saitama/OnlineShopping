@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShopping.Core;
 using OnlineShopping.Core.Enums;
@@ -9,6 +10,7 @@ using OnlineShopping.Core.Enums;
 namespace OnlineShopping.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class OrdersController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
