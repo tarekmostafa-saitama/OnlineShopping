@@ -31,9 +31,9 @@ namespace OnlineShopping.Areas.Admin.Controllers
             var model = new DashboardViewModel()
             {
                 CategoriesCount = _unitOfWork.CategoryRepository.Count(null),
-                MembersCount = _userManager.Users.Count(),
+                MembersCount = _userManager.Users.Count()-1,
                 OrdersCount = _unitOfWork.OrderRepository.Count(null),
-                ProductsCount = _unitOfWork.ProductRepository.Count(null),
+                ProductsCount = _unitOfWork.ProductRepository.Find(x=>x.IsDeleted == false,new string[0]).Count(),
                 BrandCount = _unitOfWork.BrandRepository.Count(null)
 
             };
