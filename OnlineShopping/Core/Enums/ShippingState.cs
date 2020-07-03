@@ -7,6 +7,6 @@ namespace OnlineShopping.Core.Enums
 {
     public enum ShippingState
     {
-
+        inProgress , Arrived
     }
 }

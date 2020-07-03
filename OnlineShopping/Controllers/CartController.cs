@@ -92,15 +92,42 @@ namespace OnlineShopping.Controllers
             {
                 order.Date = DateTime.Now;
                 order.MemberId = myUser.Id;
+                order.ShippingState = Core.Enums.ShippingState.inProgress;
+                unitOfWork.OrderRepository.Add(order);
+                unitOfWork.Complete();
+
+                var userTempPrds = unitOfWork.TemporaryItemsRepository.Find(ww => ww.MemberId == myUser.Id, new string[] { "Product" }).ToList();
+                foreach (var item in userTempPrds)
+                {
+                    unitOfWork.OrderProductDetailRepository.Add(new OrderProductDetail
+                    {
+                        OrderId = order.Id,
+                        ProductId = item.ProductId,
+                        Quantity = item.Quantity,
+                        Price = item.Quantity * item.Product.Price
+                    });
+
+                }
+                unitOfWork.Complete();
+                unitOfWork.TemporaryItemsRepository.DeleteRange(userTempPrds);
+                unitOfWork.Complete();
+
             }
             return RedirectToAction("DisplayCart", "Cart");
         }
 
         [HttpPost]
         [Route("/Cart/updateQuantity")]
-        public IActionResult updateQuantity(IEnumerable<TemporaryItems> tempItems)
+        public async Task<IActionResult> updateQuantityAsync(List<int> id, List<int> Quantity)
         {
-            return View();
+            Member myUser = await userManager.GetUserAsync(User);
+            var tempPrd = unitOfWork.TemporaryItemsRepository.Find(w => w.MemberId == myUser.Id , new string[] { }).ToList();
+            for(int i = 0; i < tempPrd.Count(); i++)
+            {
+                tempPrd[i].Quantity = Quantity[i];
+            }
+            unitOfWork.Complete();
+            return RedirectToAction("DisplayCart", "Cart");
         }
 
     }
