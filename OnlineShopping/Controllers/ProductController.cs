@@ -26,9 +26,15 @@ namespace OnlineShopping.Controllers
 
         [HttpGet]
         [Route("/Product/Details/{id}")]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> DetailsAsync(int id)
         {
-            ViewBag.CartCount = 5;
+            Member myUser = await userManager.GetUserAsync(User);
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+                ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+            }
+
             var product = unitOfWork.ProductRepository.Get(id, new string[] { });
 
             homeViewModel = new HomeViewModel()
@@ -48,6 +54,12 @@ namespace OnlineShopping.Controllers
         public async Task<IActionResult> AddFavouriteAsync(int id)
         {
             Member myUser = await userManager.GetUserAsync(User);
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+                ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+            }
+
             var chkFav = unitOfWork.MemberProductFavouriteRepository.Find(w => w.ProductId == id && w.MemberId == myUser.Id, new string[] { });
            if(chkFav.Count() == 0)
             {
@@ -73,6 +85,12 @@ namespace OnlineShopping.Controllers
         public async Task<IActionResult> GetFavouriteAsync()
         {
             Member myUser = await userManager.GetUserAsync(User);
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+                ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+            }
+
             IEnumerable<MemberProductFavourite> favprds = unitOfWork.MemberProductFavouriteRepository.Find(x => x.MemberId == myUser.Id && x.Product.IsDeleted == false, new string[] { "Product" });
             foreach (var item in favprds)
             {
@@ -91,8 +109,14 @@ namespace OnlineShopping.Controllers
         [HttpPost]
         [Authorize(Roles = "Member")]
         [Route("/Product/Delete/{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
+            Member myUser = await userManager.GetUserAsync(User);
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+                ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+            }
             var obj = unitOfWork.MemberProductFavouriteRepository.Get(id,new string[] { });
             unitOfWork.MemberProductFavouriteRepository.Delete(obj);
             unitOfWork.Complete();
@@ -105,6 +129,11 @@ namespace OnlineShopping.Controllers
         public async Task<IActionResult> AddCommentAsync(string Content, int id)
         {
             Member myUser = await userManager.GetUserAsync(User);
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+                ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+            }
             var product = unitOfWork.ProductRepository.Find(i => i.Id == id && i.IsDeleted == false, new string[] { "comments" });
             var data = new Comment();
             data.Content = Content;

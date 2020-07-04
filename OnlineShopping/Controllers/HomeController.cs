@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OnlineShopping.Core;
@@ -15,10 +16,13 @@ namespace OnlineShopping.Controllers
         IUnitOfWork unitOfWork;
 
         HomeViewModel homeViewModel;
+        UserManager<Member> userManager;
 
-        public HomeController(IUnitOfWork _unitOfWork)
+        public HomeController(IUnitOfWork _unitOfWork, UserManager<Member> _userManager)
         {
             unitOfWork = _unitOfWork;
+            userManager = _userManager;
+
             homeViewModel = new HomeViewModel()
             {
                 brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
@@ -28,14 +32,27 @@ namespace OnlineShopping.Controllers
         }
         [Route("~/")]
         [Route("/Home")]
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            ViewBag.CartCount = 5;
+            Member myUser = await userManager.GetUserAsync(User);
+            if (User.Identity.IsAuthenticated )
+            {
+                ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+                ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+            }
+
             return View(homeViewModel);
         }
         [Route("/Home/GetCategoryItems/{id}")]
-        public IActionResult GetCategoryItems(int id)
+        public async Task<IActionResult> GetCategoryItemsAsync(int id)
         {
+            Member myUser = await userManager.GetUserAsync(User);
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+                ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+            }
+
             homeViewModel = new HomeViewModel()
             {
                 brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
@@ -46,8 +63,16 @@ namespace OnlineShopping.Controllers
             return View(homeViewModel);
         }
         [Route("/Home/Search")]
-        public IActionResult Search(String ProductName, int categories)
+        public async Task<IActionResult> SearchAsync(String ProductName, int categories)
         {
+            Member myUser = await userManager.GetUserAsync(User);
+
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+                ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+            }
+
             homeViewModel = new HomeViewModel()
             {
                 brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),

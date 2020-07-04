@@ -23,9 +23,11 @@ namespace OnlineShopping.Controllers
             userManager = _userManager;
 
         }
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            ViewBag.CartCount = 5;
+
+            Member myUser = await userManager.GetUserAsync(User);
+            ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
             return View();
         }
 
@@ -35,6 +37,12 @@ namespace OnlineShopping.Controllers
         public async Task<IActionResult> addTocartAsync(int id)
         {
             Member myUser = await userManager.GetUserAsync(User);
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+                ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+            }
+
             var chkAdd = unitOfWork.TemporaryItemsRepository.Find(w => w.ProductId == id && w.MemberId == myUser.Id, new string[] { });
             if(chkAdd.Count() == 0)
             {
@@ -55,6 +63,13 @@ namespace OnlineShopping.Controllers
         public async Task<IActionResult> DisplayCart()
         {
             Member myUser = await userManager.GetUserAsync(User);
+
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+                ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+            }
+
             var productIDs = unitOfWork.TemporaryItemsRepository.Find(item => item.MemberId == myUser.Id,new string[] { }).ToList();
             List<Product> products = new List<Product>();
             foreach(var item in productIDs)
@@ -78,6 +93,12 @@ namespace OnlineShopping.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             Member myUser = await userManager.GetUserAsync(User);
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+                ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+            }
+
             var product = unitOfWork.TemporaryItemsRepository.Find(item => item.ProductId == id && myUser.Id == item.MemberId, new string[] { }).ToList();
             unitOfWork.TemporaryItemsRepository.DeleteRange(product);
             unitOfWork.Complete();
@@ -89,6 +110,12 @@ namespace OnlineShopping.Controllers
         public async Task<IActionResult> submitOrder(Order order)
         {
             Member myUser = await userManager.GetUserAsync(User);
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+                ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+            }
+
             if (ModelState.IsValid)
             {
                 order.Date = DateTime.Now;
@@ -122,6 +149,12 @@ namespace OnlineShopping.Controllers
         public async Task<IActionResult> updateQuantityAsync(List<int> id, List<int> Quantity)
         {
             Member myUser = await userManager.GetUserAsync(User);
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+                ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+            }
+
             var tempPrd = unitOfWork.TemporaryItemsRepository.Find(w => w.MemberId == myUser.Id , new string[] { }).ToList();
             for(int i = 0; i < tempPrd.Count(); i++)
             {
