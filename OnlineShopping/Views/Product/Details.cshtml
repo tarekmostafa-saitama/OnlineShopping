@@ -56,34 +56,9 @@
                                     <li><i class="linearicons-bag-dollar"></i> Cash on Delivery available</li>
                                 </ul>
                             </div>
-                            <div class="pr_switch_wrap">
-                                <span class="switch_lable">Color</span>
-                                <div class="product_color_switch">
-                                    <span class="active" data-color="#87554B"></span>
-                                    <span data-color="#333333"></span>
-                                    <span data-color="#DA323F"></span>
-                                </div>
-                            </div>
-                            <div class="pr_switch_wrap">
-                                <span class="switch_lable">Size</span>
-                                <div class="product_size_switch">
-                                    <span>xs</span>
-                                    <span>s</span>
-                                    <span>m</span>
-                                    <span>l</span>
-                                    <span>xl</span>
-                                </div>
-                            </div>
+                            
                         </div>
                         <hr>
-                        <div class="cart_extra">
-                            <div class="cart-product-quantity">
-                                <div class="quantity">
-                                    <input type="button" value="-" class="minus">
-                                    <input type="text" name="quantity" value="1" title="Qty" class="qty" size="4">
-                                    <input type="button" value="+" class="plus">
-                                </div>
-                            </div>
                             <div class="cart_btn">
                                 <a asp-action="addTocart" asp-controller="Cart" asp-route-id="@Model.products.ToList()[myProdindex].Id" class="btn btn-fill-out btn-addtocart" ><i class="icon-basket-loaded"></i> Add to cart</a>
                                  <a class="add_wishlist"  asp-action="AddFavourite" asp-controller="Product" asp-route-id="@Model.products.ToList()[myProdindex].Id"><i class="icon-heart"></i></a>

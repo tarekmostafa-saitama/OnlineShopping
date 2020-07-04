@@ -28,6 +28,7 @@ namespace OnlineShopping.Controllers
         [Route("/Product/Details/{id}")]
         public IActionResult Details(int id)
         {
+            ViewBag.CartCount = 5;
             var product = unitOfWork.ProductRepository.Get(id, new string[] { });
 
             homeViewModel = new HomeViewModel()

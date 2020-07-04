@@ -30,8 +30,7 @@ namespace OnlineShopping.Controllers
         [Route("/Home")]
         public IActionResult Index()
         {
-            var ran = new Random();
-            ViewData["dayDeals"] = unitOfWork.ProductRepository.GetAll(new string[1] { "ProductImages" }).OrderBy(i => ran.Next()).Take(6).ToList();
+            ViewBag.CartCount = 5;
             return View(homeViewModel);
         }
         [Route("/Home/GetCategoryItems/{id}")]

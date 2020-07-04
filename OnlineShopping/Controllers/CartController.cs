@@ -25,6 +25,7 @@ namespace OnlineShopping.Controllers
         }
         public IActionResult Index()
         {
+            ViewBag.CartCount = 5;
             return View();
         }
 
