@@ -164,6 +164,22 @@ namespace OnlineShopping.Controllers
             return RedirectToAction("DisplayCart", "Cart");
         }
 
+        [Route("/Cart/PreviousOrders")]
+        [Authorize(Roles = "Member")]
+        public async Task<IActionResult> PreviousOrdersAsync()
+        {
+            Member myUser = await userManager.GetUserAsync(User);
+            ViewData["orders"] = unitOfWork.OrderRepository.Find(item => item.MemberId == myUser.Id, new string[] { "OrderProductDetails" }).ToList();
+            homeViewModel = new HomeViewModel()
+            {
+                brands = null,
+                categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
+                comments = null,
+                products = unitOfWork.ProductRepository.GetAll(new string[] { "OrderProductDetails" }).ToList()
+            };
+            return View(homeViewModel);
+        }
+
     }
 
 

@@ -1,0 +1,90 @@
+﻿@model HomeViewModel
+
+@{
+    ViewData["Title"] = "PreviousOrders";
+    Layout = "~/Views/shared/_subLayout.cshtml";
+    var orders = ViewBag.orders as List<OnlineShopping.Core.DbEntities.Order>;
+}
+
+<div class="breadcrumb_section bg_gray page-title-mini">
+    <div class="container">
+        <!-- STRART CONTAINER -->
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="page-title">
+                    <h1>Previous Orders</h1>
+                </div>
+            </div>
+        </div>
+    </div><!-- END CONTAINER-->
+</div>
+
+<div class="main_content">
+
+    <!-- START SECTION SHOP -->
+    <div class="section">
+
+        @if (orders.Count() > 0)
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive shop_cart_table">
+                            <table class="table myTable">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th class="product-price">Date</th>
+                                        <th>Shipping State</th>
+                                        <th>Address</th>
+                                        <th>Phone</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in orders)
+                                    {
+                                    <tr>
+                                        <td class="product-name text-center" data-title="Product">
+                                            @for (int i = 0; i < item.OrderProductDetails.ToList().Count(); i++)
+                                            {
+                                                @item.OrderProductDetails.ToList()[i].Product.Title
+                                                <br /><br />
+                                            }
+                                        </td>
+
+                                        <td class="price" data-title="Price">@item.Date</td>
+
+                                        <td data-title="Total">@item.ShippingState</td>
+                                        <td>@item.Address</td>
+                                        <td>@item.Telephone</td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="container">
+                <div class="row">
+                    <h2 class="m-auto">No Orders Yet</h2>
+                </div><br />
+                <div class="row">
+
+                    <a asp-action="index" asp-controller="Home" class="btn btn-danger m-auto w-50">Continue Shopping</a>
+
+                </div>
+            </div>
+        }
+    </div>
+    </div>
+        @section Search{
+            @Html.Partial("_Search")
+
+        }
+        @section Category{
+            @Html.Partial("_Category")
+        }
