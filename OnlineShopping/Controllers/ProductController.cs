@@ -50,6 +50,31 @@ namespace OnlineShopping.Controllers
         }
 
         [Authorize(Roles = "Member")]
+        [Route("/Product/GetCommentPartialView")]
+        public async Task<IActionResult> GetCommentPartialView(int id)
+        {
+            Member myUser = await userManager.GetUserAsync(User);
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+                ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
+            }
+
+            var product = unitOfWork.ProductRepository.Get(id, new string[] { });
+
+            homeViewModel = new HomeViewModel()
+            {
+                brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
+                categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
+                comments = unitOfWork.CommentRepository.Find(x => x.ProductId == id, new string[] { "Member" }).ToList(),
+                products = unitOfWork.ProductRepository.Find(x => x.IsDeleted == false, new string[] { "ProductImages" }).ToList().Where(item => item.CategoryId == product.CategoryId && item.Id != id).Take(3).ToList()
+            };
+
+            homeViewModel.products.Add(product);
+            return PartialView("GetComments",homeViewModel);
+        }
+
+        [Authorize(Roles = "Member")]
         [Route("/Product/AddFavourite/{id}")]
         public async Task<IActionResult> AddFavouriteAsync(int id)
         {
@@ -124,9 +149,9 @@ namespace OnlineShopping.Controllers
         }
 
         [Authorize(Roles = "Member")]
-        [Route("/Product/AddComment/{id}")]
-        [HttpPost]
-        public async Task<IActionResult> AddCommentAsync(string Content, int id)
+        [Route("/Product/AddComment")]
+        [HttpGet]
+        public async Task<JsonResult> AddCommentAsync(string Content, int id)
         {
             Member myUser = await userManager.GetUserAsync(User);
             if (User.Identity.IsAuthenticated)
@@ -134,6 +159,7 @@ namespace OnlineShopping.Controllers
                 ViewBag.CartCount = unitOfWork.TemporaryItemsRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
                 ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
             }
+
             var product = unitOfWork.ProductRepository.Find(i => i.Id == id && i.IsDeleted == false, new string[] { "comments" });
             var data = new Comment();
             data.Content = Content;
@@ -143,7 +169,9 @@ namespace OnlineShopping.Controllers
             unitOfWork.CommentRepository.Add(data);
             unitOfWork.Complete();
             ViewData["data"] = data;
-            return RedirectToAction("Details",new {id=id} );
+
+            // return RedirectToAction("Details",new {id=id} );
+            return Json(id);
         }
        
     }
