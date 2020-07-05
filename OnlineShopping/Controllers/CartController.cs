@@ -58,6 +58,7 @@ namespace OnlineShopping.Controllers
             return RedirectToAction("Details" , "product" , new { id = id});
         }
 
+
         [Authorize(Roles = "Member")]
         [Route("/Cart/DispalyCart")]
         public async Task<IActionResult> DisplayCart()
@@ -146,7 +147,7 @@ namespace OnlineShopping.Controllers
 
         [HttpPost]
         [Route("/Cart/updateQuantity")]
-        public async Task<IActionResult> updateQuantityAsync(List<int> id, List<int> Quantity)
+        public async Task<JsonResult> updateQuantityAsync(int[] id, int[] Quantity)
         {
             Member myUser = await userManager.GetUserAsync(User);
             if (User.Identity.IsAuthenticated)
@@ -161,7 +162,7 @@ namespace OnlineShopping.Controllers
                 tempPrd[i].Quantity = Quantity[i];
             }
             unitOfWork.Complete();
-            return RedirectToAction("DisplayCart", "Cart");
+            return Json("Ok");
         }
 
         [Route("/Cart/PreviousOrders")]

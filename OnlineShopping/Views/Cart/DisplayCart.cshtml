@@ -50,14 +50,14 @@
                                         @foreach (var item in Model.products)
                                         {
                                             <tr>
-                                                <input type="hidden" value="@item.Id" name="id">
+                                                <input type="hidden" value="@item.Id" name="id" id="id">
                                                 <td class="product-thumbnail"><a href="#"><img src="@item.ProductImages.ToList()[0].Path" alt="product2"></a></td>
                                                 <td class="product-name" data-title="Product"><a href="#">@item.Title</a></td>
                                                 <td class="price" data-title="Price">@item.Price$</td>
                                                 <td class="product-quantity" data-title="Quantity">
                                                     <div class="quantity">
                                                         <input type="button" value="-" class="minus">
-                                                        <input type="text" min="1" name="Quantity" value="@TempOrders.Where(w => w.ProductId == item.Id).FirstOrDefault().Quantity" title="Qty" class="qty" size="4">
+                                                        <input id="Quantity" type="text" min="1" name="Quantity" value="@TempOrders.Where(w => w.ProductId == item.Id).FirstOrDefault().Quantity" title="Qty" class="qty" size="4">
                                                         <input type="button" value="+" class="plus">
                                                     </div>
                                                 </td>
@@ -69,7 +69,7 @@
                                         }
                                         <tr>
                                             <td clas="m-auto" colspan="6">
-                                                <button asp-action="updateQuantity" asp-controller="Cart" class="btn btn-block btn-fill-line w-50 m-auto" type="submit">Update Cart</button>
+                                                <button id="btnsubmit" class="btn btn-block btn-fill-line w-50 m-auto" type="button">Update Cart</button>
                                             </td>
                                         </tr>
                                     </form>
@@ -141,8 +141,8 @@
                     <h2 class="m-auto">No Items In Cart</h2>
                 </div><br />
                 <div class="row">
-                    
-                    <a asp-action="index" asp-controller="Home" class="btn btn-danger m-auto w-50">Continue Shopping</a>
+
+                    <a asp-action="index" asp-controller="Home" class="btn btn-danger m-auto w-50">Review Our Products</a>
 
                 </div>
             </div>
@@ -158,4 +158,46 @@
 }
 @section Category{
     @Html.Partial("_Category")
+}
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+
+        $('#btnsubmit').click(function () {
+            var Ids = document.querySelectorAll("#id");
+            var Quantities = document.querySelectorAll("#Quantity")
+
+            var IdArr = [];
+            var QuantityArr =[];
+
+            for (var i = 0; i < Ids.length; i++) {
+                IdArr.push(Ids[i].value)
+                QuantityArr.push(Quantities[i].value)
+            }
+
+            var model = { id: IdArr, Quantity: QuantityArr };
+
+
+            $.ajax(
+                {
+                    type: "Post",
+                    url: `/Cart/updateQuantity`,
+                    data: model,
+                    dataType: "json",
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (OkReturned) {
+                        alert("Quantity Updated");
+                    },
+                    error: function (err) {
+
+                        alert("Error Occured");
+                    }
+
+                });
+
+        })
+    </script>
+
 }

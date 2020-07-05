@@ -56,30 +56,31 @@
                                     <li><i class="linearicons-bag-dollar"></i> Cash on Delivery available</li>
                                 </ul>
                             </div>
-                            
+
                         </div>
                         <hr>
-                            <div class="cart_btn">
-                                <a asp-action="addTocart" asp-controller="Cart" asp-route-id="@Model.products.ToList()[myProdindex].Id" class="btn btn-fill-out btn-addtocart" ><i class="icon-basket-loaded"></i> Add to cart</a>
-                                 <a class="add_wishlist"  asp-action="AddFavourite" asp-controller="Product" asp-route-id="@Model.products.ToList()[myProdindex].Id"><i class="icon-heart"></i></a>
-                            </div>
+                        <div class="cart_btn">
+                            <a asp-action="addTocart" asp-controller="Cart" asp-route-id="@Model.products.ToList()[myProdindex].Id" class="btn btn-fill-out btn-addtocart"><i class="icon-basket-loaded"></i> Add to cart</a>
+                            <a class="add_wishlist" asp-action="AddFavourite" asp-controller="Product" asp-route-id="@Model.products.ToList()[myProdindex].Id"><i class="icon-heart"></i></a>
                         </div>
-                        <hr>
-                        <ul class="product-meta">
-                            <li>P#: <a href="#">@Html.DisplayFor(i => i.products.ToList()[myProdindex].Id)</a></li>
-                            <li>Category: <a href="#">@Html.DisplayFor(i => i.products.ToList()[myProdindex].Category.Name)</a></li>
-                        </ul>
-
-
                     </div>
+                    <hr>
+                    <ul class="product-meta">
+                        <li>P#: <a href="#">@Html.DisplayFor(i => i.products.ToList()[myProdindex].Id)</a></li>
+                        <li>Category: <a href="#">@Html.DisplayFor(i => i.products.ToList()[myProdindex].Category.Name)</a></li>
+                    </ul>
+
+
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="large_divider clearfix"></div>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="large_divider clearfix"></div>
             </div>
-            <div class="row">
+        </div>
+        <div class="row">
+            <div class="container">
                 <div class="col-12">
                     <div class="tab-style3">
                         <ul class="nav nav-tabs" role="tablist">
@@ -131,16 +132,21 @@
                                 </tr>
                             </table>
                             <div id="reviews" style="display:none" class="my-3">
-                                @Html.Partial("GetComments")
+                                <div id="PArtialComments">
+                                    @Html.Partial("GetComments")
+                                </div>
+                                
                                 <br />
                                 <h2 style="color:crimson">Add a review</h2>
                                 <form class="row mt-3" method="post">
-
+                                    <input type="hidden" name="id" id="productid" value="@Model.products.ToList()[myProdindex].Id" />
                                     <div class="form-group col-12">
-                                        <textarea required="required" name="Content" placeholder="Your review *" class="form-control" rows="4"></textarea>
+                                        <textarea required="required" name="Content" placeholder="Your review *" class="form-control" rows="4" id="Content"></textarea>
                                     </div>
                                     <div class="form-group col-12">
-                                        <button type="submit" asp-action="AddComment" asp-controller="Product" asp-route-id="@Model.products.ToList()[myProdindex].Id" class="btn btn-fill-out">Submit</button>
+                                        @*<button type="submit" asp-action="AddComment" asp-controller="Product" asp-route-id="@Model.products.ToList()[myProdindex].Id" class="btn btn-fill-out">Submit</button>*@
+                                        <button type="button" class="btn btn-fill-out" id="btnsubmit">Submit</button>
+
                                     </div>
                                 </form>
                             </div>
@@ -148,36 +154,36 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+</div>
 
-    <div class="container">
+<div class="container">
 
-        <div class="heading_s1">
-            <h3>Releted Products</h3>
-        </div>
-        <div class="row">
-            @for (int i = 0; i < Model.products.Count() - 1; i++)
-            {
-                <div class="col-md-3 m-1">
+    <div class="heading_s1">
+        <h3>Releted Products</h3>
+    </div>
+    <div class="row">
+        @for (int i = 0; i < Model.products.Count() - 1; i++)
+        {
+            <div class="col-md-3 m-1">
 
-                    <div class="card width-150 m-2" style="width: 18rem;">
-                        <img class="card-img-top card-img" style="height:240px" src="@Model.products.ToList()[i].ProductImages.ToList().FirstOrDefault().Path" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">@Model.products.ToList()[i].Title</h5>
-                            <p class="card-text">
-                                Price : <span class="price">@Model.products.ToList()[i].Price $</span><br />
-                                Category : <span>@Model.products.ToList()[i].Category.Name</span><br />
-                                Brand : <span>@Model.products.ToList()[i].Brand.Name</span>
-                            </p>
-                            <a asp-action="Details" asp-controller="Product" asp-route-id="@Model.products.ToList()[i].Id" class="btn btn-primary m-auto btn-block" style="background-color:#FF324D;">Details</a>
-                        </div>
+                <div class="card width-150 m-2" style="width: 18rem;">
+                    <img class="card-img-top card-img" style="height:240px" src="@Model.products.ToList()[i].ProductImages.ToList().FirstOrDefault().Path" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@Model.products.ToList()[i].Title</h5>
+                        <p class="card-text">
+                            Price : <span class="price">@Model.products.ToList()[i].Price $</span><br />
+                            Category : <span>@Model.products.ToList()[i].Category.Name</span><br />
+                            Brand : <span>@Model.products.ToList()[i].Brand.Name</span>
+                        </p>
+                        <a asp-action="Details" asp-controller="Product" asp-route-id="@Model.products.ToList()[i].Id" class="btn btn-primary m-auto btn-block" style="background-color:#FF324D;">Details</a>
                     </div>
                 </div>
-            }
-        </div>
+            </div>
+        }
     </div>
+</div>
 </div>
 
 
@@ -189,4 +195,27 @@
 @section Category{
     @Html.Partial("_Category")
 }
+@section Scripts{
 
+    <script type="text/javascript">
+        $('#btnsubmit').click(function () {
+                    $.ajax(
+                        {
+                        type: "Get",
+                            url: `/Product/AddComment`,
+                            data: { Content: $('#Content').val(), id: $('#productid').val() },
+                        dataType: "json",
+                        contentType: 'application/json; charset=utf-8',
+                            success: function (ReturnedId) {
+                                $("#PArtialComments").load(`@Url.Action("GetCommentPartialView", "Product")?id=${ReturnedId}`);
+                                $('#Content').val('');
+                            },
+                            error: function (err) {
+                                window.location.href =`@Url.Action("Login", "Account")`}
+
+                    });
+
+    })
+    </script>
+
+}
