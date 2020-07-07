@@ -51,7 +51,7 @@
                                         {
                                             <tr>
                                                 <input type="hidden" value="@item.Id" name="id" id="id">
-                                                <td class="product-thumbnail"><a href="#"><img src="@item.ProductImages.ToList()[0].Path" alt="product2"></a></td>
+                                                <td class="product-thumbnail"><a href="#"><img src="~/Uploads/@item.ProductImages.ToList()[0].Path" alt="product2"></a></td>
                                                 <td class="product-name" data-title="Product"><a href="#">@item.Title</a></td>
                                                 <td class="price" data-title="Price">@item.Price$</td>
                                                 <td class="product-quantity" data-title="Quantity">

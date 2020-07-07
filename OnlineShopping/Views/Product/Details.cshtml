@@ -20,7 +20,7 @@
                 <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
                     <div class="product-image">
                         <div class="product_img_box">
-                            <img id="product_img" style="width:100%;height:100%" src='@Model.products.ToList()[myProdindex].ProductImages.ToList().FirstOrDefault().Path' data-zoom-image="assets/images/product_zoom_img1.jpg" alt="product_img1">
+                            <img id="product_img" style="width:100%;height:100%" src='~/Uploads/@Model.products.ToList()[myProdindex].ProductImages.ToList().FirstOrDefault().Path' data-zoom-image="assets/images/product_zoom_img1.jpg" alt="product_img1">
                             <a href="#" class="product_img_zoom" title="Zoom">
                                 <span class="linearicons-zoom-in"></span>
                             </a>
@@ -30,7 +30,7 @@
                             {
                                 <div class="item">
                                     <a href="#" class="product_gallery_item active" data-image="assets/images/product_img1.jpg" data-zoom-image="assets/images/product_zoom_img1.jpg">
-                                        <img src="@item.Path" alt="product_small_img1">
+                                        <img src="~/Uploads/@item.Path" alt="product_small_img1">
                                     </a>
                                 </div>
                             }
@@ -169,7 +169,7 @@
             <div class="col-md-3 m-1">
 
                 <div class="card width-150 m-2" style="width: 18rem;">
-                    <img class="card-img-top card-img" style="height:240px" src="@Model.products.ToList()[i].ProductImages.ToList().FirstOrDefault().Path" alt="Card image cap">
+                    <img class="card-img-top card-img" style="height:240px" src="~/Uploads/@Model.products.ToList()[i].ProductImages.ToList().FirstOrDefault().Path" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title text-center">@Model.products.ToList()[i].Title</h5>
                         <p class="card-text">
