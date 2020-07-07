@@ -1,0 +1,29 @@
+﻿@model IEnumerable<OrderProductDetail>
+
+    <div id="content">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+            </tr>
+            </thead>
+            <tbody>
+             @foreach (var i in Model)
+             {
+                 <tr>
+                     <th>@i.Product.Title</th>
+                     <td>@i.Price</td>
+                     <td>@i.Quantity</td>
+                     <td>(@i.Price * @i.Quantity)</td>
+                 </tr>
+             }
+
+            </tbody>
+        </table>
+        
+        
+
+    </div>

@@ -1,8 +1,8 @@
-﻿@model Category
+﻿@using System.Collections.Specialized
+@model IEnumerable<Member>
 @{
-    ViewData["Title"] = "Category Products";
+    ViewData["Title"] = "Members List";
 }
-
 
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -19,10 +19,10 @@
                                     <a><i class="bx bx-home-alt"></i></a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a>Categories</a>
+                                    <a>Members</a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    Products List
+                                    Members List
                                 </li>
                             </ol>
                         </div>
@@ -34,47 +34,46 @@
             <!-- Description -->
             <section id="description" class="card">
                 <div class="card-header">
-                    <h3 class="card-title">
-
-                        @Model.Name : Products List
-                    </h3>
+                    <h4 class="card-title">
+             
+                    </h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
                         <table class="table table-striped" id="tbl">
                             <thead>
                                 <tr>
-                                    <th>Product Name</th>
-                                    <th>Product Price</th>
-                                    <th>Operations</th>
+                                    <th>Member Name</th>
+                                   
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (!Model.Products.Any())
+                                @if (!Model.Any())
                                 {
                                     <tr>
-                                        <td colspan="3">
-                                            <h2 class="text-danger text-center">There is no Products yet.</h2>
+                                        <td colspan="1">
+                                            <h2 class="text-danger text-center">There is no members yet.</h2>
                                         </td>
                                     </tr>
                                 }
-                                @foreach (var product in Model.Products.Where(x => !x.IsDeleted))
+                                @foreach (var member in Model)
                                 {
                                     <tr>
-                                        <td>@product.Title</td>
-                                        <td>@product.Price</td>
+                                        <td>@member.UserName</td>
+                                    
 
-                                        <td>
+                                        @*<td>
                                             <a class="btn btn-danger deleteForm" style="color: #FFF !important; top: unset !important"
-                                               asp-route-id="@product.Id"
-                                               asp-action="Delete" asp-controller="Products">
+                                               asp-route-id="@category.Id"
+                                               asp-action="Delete" asp-controller="Categories">
                                                 <i style="color: #FFF !important; top: unset !important" class="fa fa-trash-o"></i>
                                             </a>
-                                            <a class="btn btn-success" onclick="GetProductComments(@product.Id)" style="color: #FFF !important; top: unset !important"
-                                               href="#">
+                                            <a class="btn btn-info" style="color: #FFF !important; top: unset !important"
+                                               asp-route-categoryId="@category.Id"
+                                               asp-action="ListOverCategories" asp-controller="Products">
                                                 <i style="color: #FFF !important; top: unset !important" class="fa fa-address-card"></i>
                                             </a>
-                                        </td>
+                                        </td>*@
                                     </tr>
                                 }
 
@@ -132,42 +131,6 @@
             });
 
         });
-        function GetProductComments(productId) {
-            fetch('/Admin/Comments/List/' + productId)
-                .then(response => {
-                    return response.text();
-                }).then(response => {
-                    // Initialize the DOM parser
-                    var parser = new DOMParser();
-                    // Parse the text
-                    var doc = parser.parseFromString(response, "text/html");
-                    console.log(doc);
-                    document.querySelector('#CommentsDetailsDiv').innerHTML = doc.querySelector('#content').innerHTML;
-                    $('#CommentsDetails').modal('show');
-                });
-        }
+
     </script>
 }
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="CommentsDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Comments Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="CommentsDetailsDiv"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-            </div>
-        </div>
-    </div>
-</div>

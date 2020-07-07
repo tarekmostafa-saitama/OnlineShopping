@@ -1,4 +1,5 @@
 ﻿@using System.Collections.Specialized
+@using OnlineShopping.Core.Enums
 @model IEnumerable<Order>
 @{
     ViewData["Title"] = "Orders List";
@@ -35,8 +36,6 @@
             <section id="description" class="card">
                 <div class="card-header">
                     <h4 class="card-title">
-
-                  
                     </h4>
                 </div>
                 <div class="card-content">
@@ -69,17 +68,15 @@
                                         <td>@order.Member.UserName</td>
 
                                         <td>
-                                            @*<a class="btn btn-danger deleteForm" style="color: #FFF !important; top: unset !important"
-                                               asp-route-id="@brand.Id"
-                                               asp-action="Delete" asp-controller="Brands">
+                                            <a href="#" data-id="@order.Id" data-toggle="modal" data-target="#UpdateState" class="btn btn-info" style="color: #FFF !important; top: unset !important">
+                                                <i style="color: #FFF !important; top: unset !important" class="fa fa-edit"></i>
+                                            </a>
+                                            <a href="#" onclick="GetOrderDetails(@order.Id)" class="btn btn-success" style="color: #FFF !important; top: unset !important">
+                                                <i style="color: #FFF !important; top: unset !important" class="fa fa-address-card"></i>
+                                            </a>
+                                            <a asp-controller="Orders" asp-action="Delete" asp-route-id="@order.Id" class="btn btn-danger" style="color: #FFF !important; top: unset !important">
                                                 <i style="color: #FFF !important; top: unset !important" class="fa fa-trash-o"></i>
                                             </a>
-
-                                            <a class="btn btn-info" style="color: #FFF !important; top: unset !important"
-                                               asp-route-brandId="@brand.Id"
-                                               asp-action="ListOverBrands" asp-controller="Products">
-                                                <i style="color: #FFF !important; top: unset !important" class="fa fa-address-card"></i>
-                                            </a>*@
                                         </td>
                                     </tr>
                                 }
@@ -138,6 +135,78 @@
             });
 
         });
+        $('#UpdateState').on('show.bs.modal', function (e) {
+
+            //get data-id attribute of the clicked element
+            var orderId = $(e.relatedTarget).data('id');
+
+            //populate the textbox
+            $(e.currentTarget).find('input[name="orderId"]').val(orderId);
+        });
+
+        function GetOrderDetails(orderId) {
+            fetch('/Admin/Orders/GetOrderDetails/' + orderId)
+                .then(response => {
+                    return response.text();
+                }).then(response => {
+                    // Initialize the DOM parser
+                    var parser = new DOMParser();
+                    // Parse the text
+                    var doc = parser.parseFromString(response, "text/html");
+                    console.log(doc);
+                    document.querySelector('#OrderDetailsDiv').innerHTML = doc.querySelector('#content').innerHTML;
+                    $('#OrderDetails').modal('show');
+                });
+        }
 
     </script>
 }
+<!-- Modal -->
+<div class="modal fade" id="UpdateState" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Shipping State</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" asp-action="UpdateShippingState" asp-controller="Orders">
+                    <div class="form-group">
+                        <input type="hidden" name="orderId" id="orderId" />
+                        <select name="shippingState" class="form-control" asp-items="Html.GetEnumSelectList<ShippingState>()"></select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Change Shipping State</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="OrderDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Order Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="OrderDetailsDiv"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>

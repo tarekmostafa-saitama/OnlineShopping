@@ -24,7 +24,8 @@ namespace OnlineShopping.Core.DbEntities
         public ICollection<ProductImage> ProductImages { get; set; }
         public ICollection<OrderProductDetail> OrderProductDetails { get; set; }
         public ICollection<MemberProductFavourite> MemberProductFavourites { get; set; }
-        public ICollection<Comment> comments { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+       
 
     }
 }

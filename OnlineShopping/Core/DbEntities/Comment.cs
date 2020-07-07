@@ -19,5 +19,7 @@ namespace OnlineShopping.Core.DbEntities
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
+
+        
     }
 }
