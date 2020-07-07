@@ -160,7 +160,7 @@ namespace OnlineShopping.Controllers
                 ViewBag.FavCount = unitOfWork.MemberProductFavouriteRepository.GetAll(new string[] { }).Where(x => x.MemberId == myUser.Id).Count();
             }
 
-            var product = unitOfWork.ProductRepository.Find(i => i.Id == id && i.IsDeleted == false, new string[] { "comments" });
+            var product = unitOfWork.ProductRepository.Find(i => i.Id == id && i.IsDeleted == false, new string[] { "Comments" });
             var data = new Comment();
             data.Content = Content;
             data.Date = System.DateTime.Now;

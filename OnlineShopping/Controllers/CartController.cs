@@ -121,7 +121,7 @@ namespace OnlineShopping.Controllers
             {
                 order.Date = DateTime.Now;
                 order.MemberId = myUser.Id;
-                order.ShippingState = Core.Enums.ShippingState.inProgress;
+                order.ShippingState = Core.Enums.ShippingState.ShippingProcess;
                 unitOfWork.OrderRepository.Add(order);
                 unitOfWork.Complete();
 
