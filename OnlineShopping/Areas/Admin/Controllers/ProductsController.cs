@@ -105,7 +105,7 @@ namespace OnlineShopping.Areas.Admin.Controllers
                 _unitOfWork.Complete();
             }
 
-            return RedirectToAction("Dashboard","Dashboard");
+            return Redirect(Request.Headers["Referer"].ToString());
         }
     }
 }

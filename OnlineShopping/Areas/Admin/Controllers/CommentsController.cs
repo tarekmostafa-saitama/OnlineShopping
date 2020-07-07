@@ -31,7 +31,9 @@ namespace OnlineShopping.Areas.Admin.Controllers
             var comment = _unitOfWork.CommentRepository.Get(id, new string[0]);
             _unitOfWork.CommentRepository.Delete(comment);
             _unitOfWork.Complete();
-            return RedirectToAction("Dashboard", "Dashboard");
+            //return RedirectToAction("Dashboard", "Dashboard");
+            return Redirect(Request.Headers["Referer"].ToString());
+
         }
 
     }
