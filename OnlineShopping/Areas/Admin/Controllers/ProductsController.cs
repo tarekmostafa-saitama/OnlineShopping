@@ -97,7 +97,7 @@ namespace OnlineShopping.Areas.Admin.Controllers
         [Route("Admin/Products/Delete/{id}")]
         public IActionResult Delete(int id)
         {
-            var url = HttpContext.Request.Path;
+            //var url = HttpContext.Request.Path;
             var product = _unitOfWork.ProductRepository.Get(id,new string[0]);
             if (product != null)
             {
@@ -105,7 +105,7 @@ namespace OnlineShopping.Areas.Admin.Controllers
                 _unitOfWork.Complete();
             }
 
-            return Redirect(url.ToString());
+            return RedirectToAction("Dashboard","Dashboard");
         }
     }
 }

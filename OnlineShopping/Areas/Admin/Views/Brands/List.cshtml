@@ -62,7 +62,7 @@
                                 {
                                     <tr>
                                         <td>@brand.Name</td>
-                                        <td>@brand.Products.Count</td>
+                                        <td>@brand.Products.Count(x => x.IsDeleted == false)</td>
 
                                         <td>
                                             <a class="btn btn-danger deleteForm" style="color: #FFF !important; top: unset !important"
