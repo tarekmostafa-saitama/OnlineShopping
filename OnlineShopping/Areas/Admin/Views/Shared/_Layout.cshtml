@@ -96,9 +96,9 @@
                 </li>
 
                 <li class=" nav-item">
-                    <a href="#"><i class="menu-livicon" data-icon="building"></i><span class="menu-title" data-i18n="">Categories Section</span></a>
+                    <a href="#"><i class="menu-livicon" data-icon="pie-chart"></i><span class="menu-title" data-i18n="">Categories Section</span></a>
                     <ul class="menu-content">
-            
+
                         <li>
                             <a asp-controller="Categories" asp-action="List"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="nav.sk_starter_kit.static_layout">Categories List</span></a>
                         </li>
@@ -117,27 +117,36 @@
                     </ul>
                 </li>
 
-                @*<li class=" nav-item">
-                    <a href="#"><i class="menu-livicon" data-icon="morph-folder"></i><span class="menu-title" data-i18n="">قسم الشهادات</span></a>
+                <li class=" nav-item">
+                    <a href="#"><i class="menu-livicon" data-icon="pie-chart"></i><span class="menu-title" data-i18n="">Orders Section</span></a>
                     <ul class="menu-content">
                         <li>
-                            <a asp-controller="Certificate" asp-action="Add"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="nav.sk_starter_kit.static_layout">اضافة شهادة جديدة</span></a>
+                            <a asp-controller="Orders" asp-action="List"><i class="bx bx-right-arrow-alt"></i><span class="menu-title" data-i18n="">Orders List</span></a>
                         </li>
-                        <li>
-                            <a asp-controller="Certificate" asp-action="List"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="nav.sk_starter_kit.static_layout">قائمة الشهادات</span></a>
-                        </li>
+                   
                     </ul>
-                </li>*@
+                </li>
+                
+                <li class=" nav-item">
+                    <a href="#"><i class="menu-livicon" data-icon="pie-chart"></i><span class="menu-title" data-i18n="">Members Section</span></a>
+                    <ul class="menu-content">
+                        <li>
+                            <a asp-controller="Members" asp-action="List"><i class="bx bx-right-arrow-alt"></i><span class="menu-title" data-i18n="">Members List</span></a>
+                        </li>
+                   
+                    </ul>
+                </li>
 
                 <li class=" nav-item">
-                    <a asp-controller="Products" asp-action="Add"><i class="menu-livicon" data-icon="anchor"></i><span class="menu-title" data-i18n="">Add new Product</span></a>
+                    <a href="#"><i class="menu-livicon" data-icon="pie-chart"></i><span class="menu-title" data-i18n="">Products Section</span></a>
+                    <ul class="menu-content">
+                        <li>
+                            <a asp-controller="Products" asp-action="Add"><i class="bx bx-right-arrow-alt"></i><span class="menu-title" data-i18n="">Add new product</span></a>
+                        </li>
+                   
+                    </ul>
                 </li>
-                <li class=" nav-item">
-                    <a asp-controller="Orders" asp-action="List"><i class="menu-livicon" data-icon="anchor"></i><span class="menu-title" data-i18n="">Orders List</span></a>
-                </li>
-                <li class=" nav-item">
-                    <a asp-controller="Members" asp-action="List"><i class="menu-livicon" data-icon="anchor"></i><span class="menu-title" data-i18n="">Members List</span></a>
-                </li>
+
 
             </ul>
         </div>
