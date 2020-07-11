@@ -14,10 +14,10 @@ namespace OnlineShopping.Core.DbEntities
         public string Description { get; set; }
         public bool IsDeleted { get; set; }
         public int Price { get; set; }
-        public int BrandId { get; set; }
+        public int? BrandId { get; set; }
         [ForeignKey("BrandId")]
         public Brand Brand { get; set; }
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
