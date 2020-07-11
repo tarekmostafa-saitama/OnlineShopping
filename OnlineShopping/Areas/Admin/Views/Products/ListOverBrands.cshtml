@@ -69,6 +69,11 @@
                                                asp-action="Delete" asp-controller="Products">
                                                 <i style="color: #FFF !important; top: unset !important" class="fa fa-trash-o"></i>
                                             </a>
+                                            <a class="btn btn-primary" style="color: #FFF !important; top: unset !important"
+                                               asp-route-id="@product.Id"
+                                               asp-action="Update" asp-controller="Products">
+                                                <i style="color: #FFF !important; top: unset !important" class="fa fa-edit"></i>
+                                            </a>
                                             <a class="btn btn-success" onclick="GetProductComments(@product.Id)" style="color: #FFF !important; top: unset !important"
                                                href="#">
                                                 <i style="color: #FFF !important; top: unset !important" class="fa fa-address-card"></i>

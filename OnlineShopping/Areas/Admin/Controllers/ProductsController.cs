@@ -31,6 +31,28 @@ namespace OnlineShopping.Areas.Admin.Controllers
             ViewBag.Brands = _unitOfWork.BrandRepository.GetAll(new string[0]).ToList();
             return View(new AddProductViewModel());
         }
+        [Route("Admin/Products/Update/{id}")]
+        public IActionResult Update(int id)
+        {
+            ViewBag.Categories = _unitOfWork.CategoryRepository.GetAll(new string[0]).ToList();
+            ViewBag.Brands = _unitOfWork.BrandRepository.GetAll(new string[0]).ToList();
+            var product = _unitOfWork.ProductRepository.Get(id, new string[0]);
+            if (product == null || product.IsDeleted == true)
+            {
+                ViewBag.Error = "Product not found.";
+                return View("Error");
+            }
+            var model = new UpdateProductViewModel()
+            {
+                Id = product.Id,
+                BrandId = product.BrandId,
+                Description = product.Description,
+                Title = product.Title,
+                CategoryId = product.CategoryId,
+                Price = product.Price
+            };
+            return View(model);
+        }
         [Route("Admin/Products/Add")]
         [HttpPost]
         public IActionResult Add(AddProductViewModel model)
@@ -69,6 +91,27 @@ namespace OnlineShopping.Areas.Admin.Controllers
                 _unitOfWork.Complete();
             }
             return RedirectToAction("Add");
+        }
+        [Route("Admin/Products/Update/{id}")]
+        [HttpPost]
+        public IActionResult Update(UpdateProductViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Categories = _unitOfWork.CategoryRepository.GetAll(new string[0]).ToList();
+                ViewBag.Brands = _unitOfWork.BrandRepository.GetAll(new string[0]).ToList();
+                return View(model);
+            }
+            var product = _unitOfWork.ProductRepository.Get(model.Id, new string[0]);
+
+            product.BrandId = model.BrandId ?? default;
+            product.CategoryId = model.CategoryId ?? default;
+            product.Description = model.Description;
+            product.Title = model.Title ;
+            product.Price = model.Price ?? default;
+           _unitOfWork.Complete();
+
+           return RedirectToAction("Update",new {id = model.Id});
         }
         [Route("Admin/Category/{categoryId}/Products/List")]
         public IActionResult ListOverCategories(int categoryId)
