@@ -11,15 +11,19 @@
             </tr>
             </thead>
             <tbody>
-             @foreach (var i in Model)
-             {
-                 <tr>
-                     <th>@i.Product.Title</th>
-                     <td>@i.Price</td>
-                     <td>@i.Quantity</td>
-                     <td>(@i.Price * @i.Quantity)</td>
-                 </tr>
-             }
+                @foreach (var i in Model)
+                {
+
+                    
+                        int sum = i.Price * i.Quantity;
+                    
+                    <tr>
+                        <th>@i.Product.Title</th>
+                        <td>@i.Price</td>
+                        <td>@i.Quantity</td>
+                        <td>@sum</td>
+                    </tr>
+                }
 
             </tbody>
         </table>
