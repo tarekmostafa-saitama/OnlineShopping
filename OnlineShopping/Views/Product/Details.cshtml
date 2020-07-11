@@ -20,7 +20,7 @@
                 <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
                     <div class="product-image">
                         <div class="product_img_box">
-                            <img id="product_img" style="width:100%;height:100%" src='@Model.products.ToList()[myProdindex].ProductImages.ToList().FirstOrDefault().Path' data-zoom-image="assets/images/product_zoom_img1.jpg" alt="product_img1">
+                            <img id="product_img" style="width:100%;height:100%" src='@Model.products.ToList()[myProdindex].ProductImages.ToList().FirstOrDefault().Path' data-zoom-image="@Model.products.ToList()[myProdindex].ProductImages.ToList().FirstOrDefault().Path" alt="product_img1">
                             <a href="#" class="product_img_zoom" title="Zoom">
                                 <span class="linearicons-zoom-in"></span>
                             </a>
@@ -29,7 +29,7 @@
                             @foreach (var item in Model.products.ToList()[myProdindex].ProductImages)
                             {
                                 <div class="item">
-                                    <a href="#" class="product_gallery_item active" data-image="assets/images/product_img1.jpg" data-zoom-image="assets/images/product_zoom_img1.jpg">
+                                    <a href="#" class="product_gallery_item active" data-image="@item.Path" data-zoom-image="@item.Path">
                                         <img src="@item.Path" alt="product_small_img1">
                                     </a>
                                 </div>
@@ -41,9 +41,10 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="pr_detail">
                         <div class="product_description">
+                            <input type="hidden" class="product_Id" value="@Model.products.ToList()[myProdindex].Id"/>
                             <h4 class="product_title"><a href="#">@Html.DisplayFor(i => i.products.ToList()[myProdindex].Title)</a></h4>
                             <div class="product_price">
-                                <span class="price">@Html.DisplayFor(i => i.products.ToList()[myProdindex].Price) $</span>
+                                <span class="price">@Html.DisplayFor(i => i.products.ToList()[myProdindex].Price) </span><span>$</span>
                             </div>
 
                             <div class="pr_desc">
