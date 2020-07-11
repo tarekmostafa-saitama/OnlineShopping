@@ -69,7 +69,7 @@ namespace OnlineShopping.Areas.Admin.Controllers
                 return View("Error");
             }
 
-            if (brand.Products.Count != 0)
+            if (brand.Products.Any(x => x.IsDeleted == false))
             {
                 ViewBag.Error = "Can't delete brand while it have existing products, Please delete products first.";
                 return View("Error");

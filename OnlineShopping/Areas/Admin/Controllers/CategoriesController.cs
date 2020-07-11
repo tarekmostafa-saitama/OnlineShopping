@@ -48,7 +48,7 @@ namespace OnlineShopping.Areas.Admin.Controllers
                 return View("Error");
             }
 
-            if (category.Products.Count != 0)
+            if (category.Products.Any(x => x.IsDeleted == false))
             {
                 ViewBag.Error = "Can't delete category while it have existing products, Please delete products first.";
                 return View("Error");
