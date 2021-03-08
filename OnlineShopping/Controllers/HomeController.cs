@@ -28,7 +28,7 @@ namespace OnlineShopping.Controllers
             };
         }
 
-        [Route("/Home/Index")]
+        [Route("/Home")]
         public IActionResult Index()
         {
             return View(homeViewModel);
@@ -59,22 +59,7 @@ namespace OnlineShopping.Controllers
             return View("GetCategoryItems", homeViewModel);
 
         }
-        [HttpGet]
-        [Route("/Home/Details/{id}")]
-        public IActionResult Details(int id)
-        {
-            var product = unitOfWork.ProductRepository.Get(id, new string[] { });
-
-            homeViewModel = new HomeViewModel()
-            {
-                brands = unitOfWork.BrandRepository.GetAll(new string[0] { }).ToList(),
-                categories = unitOfWork.CategoryRepository.GetAll(new string[0] { }).ToList(),
-                products = unitOfWork.ProductRepository.GetAll(new string[0] { }).ToList().Where(item => item.CategoryId == product.CategoryId && item.Id != id).Take(3).ToList()
-            };
-
-            homeViewModel.products.Add(product);
-            return View(homeViewModel);
-        }
+        
 
 
     }
